@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-auth.js'
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-analytics.js";
-import { getFirestore, collection, getDocs, getDoc } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js'
+import { getFirestore, collection, getDocs, getDoc, updateDoc, onSnapshot, addDoc, doc } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js'
 // TODO: Add SDKs for Firebase products that you want to use
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -20,6 +20,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+async function getData() {
+    const databaseCollection = collection(db, 'database');
+    const dataSnapshot = await getDocs(databaseCollection);
+    const documentData = dataSnapshot.docs.map(doc => doc.data());
+    //const DataAsJSON = JSON.stringify(documentData);
+    console.log(documentData);
 
+    // Hier fügst du den Code für die Echtzeitaktualisierung hinzu
+    onSnapshot(databaseCollection, (querySnapshot) => {
+        const updatedDocumentData = querySnapshot.docs.map(doc => doc.data());
+        console.log("Updated data in real-time:", updatedDocumentData);
+        // Hier kannst du die aktualisierten Daten im Browser rendern oder verwenden
+    });
+}
 
-console.log(db)
+getData()
+
