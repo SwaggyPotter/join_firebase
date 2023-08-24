@@ -16,24 +16,48 @@ const firebaseConfig = {
     measurementId: "G-9TMJ40ZZY8"
 };
 
+let contactData;
+
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+
 async function getData() {
     const databaseCollection = collection(db, 'database');
     const dataSnapshot = await getDocs(databaseCollection);
     const documentData = dataSnapshot.docs.map(doc => doc.data());
     //const DataAsJSON = JSON.stringify(documentData);
-    console.log(documentData);
 
     // Hier fügst du den Code für die Echtzeitaktualisierung hinzu
     onSnapshot(databaseCollection, (querySnapshot) => {
         const updatedDocumentData = querySnapshot.docs.map(doc => doc.data());
-        console.log("Updated data in real-time:", updatedDocumentData);
+        //console.log("Updated data in real-time:", updatedDocumentData);
         // Hier kannst du die aktualisierten Daten im Browser rendern oder verwenden
+        const data = {
+            "categories": JSON.stringify(updatedDocumentData[0]['categories']),
+            "categoriesBackground": JSON.stringify(updatedDocumentData[1]['categoriesBackground']),
+            "categoryColors": JSON.stringify(updatedDocumentData[2]['categoryColors']),
+            "contacts": updatedDocumentData[3]['contacts'],
+            "registeredUsers": (updatedDocumentData[4]['registeredUsers']),
+            "tasksAwaitFeedback": (updatedDocumentData[5]['tasksAwaitFeedback']),
+            "tasksDone": (updatedDocumentData[6]['tasksDone']),
+            "tasksInProgress": (updatedDocumentData[7]['tasksInProgress']),
+            "tasksToDo": (updatedDocumentData[8]['tasksToDo'])
+        };
+
+        //const dataAsJSON = JSON.stringify(data, null, 2); // Konvertiere in JSON
+        contactData = updatedDocumentData[3]['contacts']
+        handleContactData(contactData);
     });
 }
-
+ 
 getData()
+
+
+function handleContactData(data) {
+    window.FirebaseContacts = data
+}
 

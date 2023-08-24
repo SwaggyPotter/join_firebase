@@ -1,17 +1,27 @@
 let contacts = []
 let sortedContacts = sortContactsAndSave(contacts);
 let contactsTransform;
-
+const firstData = [];
+const Contacts = parseContactData(firstData);
 
 /**
  * load the contacts from the backend
  */
 async function loadContactFromBackEnd() {
-    setTimeout(() => {
-        contactsTransform = backend.getItem('contacts') || []
-        sortedContacts = JSON.parse(contactsTransform) || []
+    setTimeout(async () => {
+        sortedContacts = parseContactData(window.FirebaseContacts) || []
         renderTheQuestContacts();
     }, 1000)
+}
+
+/**
+ * 
+ * @param {array} jsonStrings array with strings
+ * @returns an objekt
+ */
+function parseContactData(jsonStrings) {
+    const contacts = jsonStrings.map(jsonString => JSON.parse(jsonString));
+    return contacts;
 }
 
 
