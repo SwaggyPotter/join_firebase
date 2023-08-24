@@ -21,6 +21,9 @@ let taskTodoData;
 let taskAwaitData;
 let taskInProgressData;
 let taskDoneData;
+let categories;
+let categoryColors;
+let categoriesBackground;
 
 
 // Initialize Firebase
@@ -55,8 +58,14 @@ async function getData() {
         contactData = updatedDocumentData[3]['contacts'];
         taskTodoData = updatedDocumentData[8]['tasksToDo'];
         taskAwaitData = updatedDocumentData[5]['tasksAwaitFeedback'];
-        taskInProgressData = updatedDocumentData[7]['tasksInProgress']
-        taskDoneData = updatedDocumentData[8]['tasksToDo']
+        taskInProgressData = updatedDocumentData[7]['tasksInProgress'];
+        taskDoneData = updatedDocumentData[8]['tasksToDo'];
+        categories = JSON.stringify(updatedDocumentData[0]['categories']);
+        categoryColors = JSON.stringify(updatedDocumentData[2]['categoryColors']);
+        categoriesBackground = JSON.stringify(updatedDocumentData[1]['categoriesBackground']);
+        handleCategories(categories);
+        handleCategoryColors(categoryColors);
+        handleCategoryBackground(categoriesBackground);
         handleContactData(contactData);
         handleTaskTodoData(taskTodoData);
         handleTaskAwaitData(taskAwaitData);
@@ -66,6 +75,18 @@ async function getData() {
 }
 
 getData()
+
+function handleCategories(categories) {
+    window.FireCategory = categories;
+}
+
+function handleCategoryColors(categoryColors) {
+    window.FireCategoryColors = categoryColors;
+}
+
+function handleCategoryBackground(categoriesBackground) {
+    window.FireCategoryBackground = categoriesBackground;
+}
 
 function handleTaskDoneData(taskDoneData) {
     window.FirebaseDone = taskDoneData;

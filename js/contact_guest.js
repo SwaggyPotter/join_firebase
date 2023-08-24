@@ -15,7 +15,6 @@ async function loadContactFromBackEnd() {
 }
 
 /**
- * 
  * @param {array} jsonStrings array with strings
  * @returns an objekt
  */

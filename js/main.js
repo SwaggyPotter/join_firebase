@@ -50,9 +50,9 @@ function parseContactData(jsonStrings) {
  * 
  */
 function loadCategoriesFromBackend() {
-    categoriesBackground = JSON.parse(backend.getItem('categoriesBackground')) || [];
-    categoryColors = JSON.parse(backend.getItem('categoryColors')) || [];
-    categories = JSON.parse(backend.getItem('categories')) || [];
+    categoriesBackground = JSON.parse(window.FireCategoryBackground) || [];
+    categoryColors = JSON.parse(window.FireCategoryColors) || [];
+    categories = JSON.parse(window.FireCategory) || [];
 }
 
 
@@ -73,9 +73,9 @@ async function initBackend() {
  */
 async function initBoard() {
     await downloadFromServer();
-    loadTasksFromBackend();
+    loadTasksFromBackend(); //firebased
     loadContactsFromBackend(); //firebased
-    loadCategoriesFromBackend();
+    loadCategoriesFromBackend(); // firebased
     renderBoard();
 }
 
