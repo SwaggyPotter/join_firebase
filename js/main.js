@@ -17,15 +17,11 @@ let categories = [];
  * this function loads the tasks from backend
  * 
  */
-function loadTasksFromBackend() {
-    let taskstringToDo = backend.getItem('tasksToDo');
-    let taskstringInProgress = backend.getItem('tasksInProgress');
-    let taskstringAwaitFeedback = backend.getItem('tasksAwaitFeedback');
-    let taskstringDone = backend.getItem('tasksDone');
-    tasksToDo = JSON.parse(taskstringToDo) || [];
-    tasksInProgress = JSON.parse(taskstringInProgress) || [];
-    tasksAwaitFeedback = JSON.parse(taskstringAwaitFeedback) || [];
-    tasksDone = JSON.parse(taskstringDone) || [];    
+async function loadTasksFromBackend() {
+    tasksToDo = JSON.parse(window.FirebaseTodo) || [];
+    tasksInProgress = JSON.parse(window.FirebaseProgData) || [];
+    tasksAwaitFeedback = JSON.parse(window.DirebaseAwaitData) || [];
+    tasksDone = JSON.parse(window.FirebaseTodo) || [];
 }
 
 
@@ -34,8 +30,19 @@ function loadTasksFromBackend() {
  * 
  */
 function loadContactsFromBackend() {
-    contacts = JSON.parse(backend.getItem('contacts'));
+    contacts = parseContactData(window.FirebaseContacts);
 }
+
+/**
+ * 
+ * @param {array} jsonStrings array with strings
+ * @returns an objekt
+ */
+function parseContactData(jsonStrings) {
+    const contacts = jsonStrings.map(jsonString => JSON.parse(jsonString));
+    return contacts;
+}
+
 
 
 /**
@@ -67,9 +74,15 @@ async function initBackend() {
 async function initBoard() {
     await downloadFromServer();
     loadTasksFromBackend();
-    loadContactsFromBackend();
+    loadContactsFromBackend(); //firebased
     loadCategoriesFromBackend();
     renderBoard();
+}
+
+
+async function getData() {
+    // ... (dein Code, um die Daten abzurufen)
+    // handleTaskTodoData(taskTodoData);  // Bereits in onSnapshot enthalten
 }
 
 

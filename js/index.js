@@ -17,7 +17,10 @@ const firebaseConfig = {
 };
 
 let contactData;
-
+let taskTodoData;
+let taskAwaitData;
+let taskInProgressData;
+let taskDoneData;
 
 
 // Initialize Firebase
@@ -48,16 +51,39 @@ async function getData() {
             "tasksToDo": (updatedDocumentData[8]['tasksToDo'])
         };
 
-        //const dataAsJSON = JSON.stringify(data, null, 2); // Konvertiere in JSON
-        contactData = updatedDocumentData[3]['contacts']
+        const dataAsJSON = JSON.stringify(data, null, 2); // Konvertiere in JSON
+        contactData = updatedDocumentData[3]['contacts'];
+        taskTodoData = updatedDocumentData[8]['tasksToDo'];
+        taskAwaitData = updatedDocumentData[5]['tasksAwaitFeedback'];
+        taskInProgressData = updatedDocumentData[7]['tasksInProgress']
+        taskDoneData = updatedDocumentData[8]['tasksToDo']
         handleContactData(contactData);
+        handleTaskTodoData(taskTodoData);
+        handleTaskAwaitData(taskAwaitData);
+        handleTaskInProgData(taskInProgressData);
+        handleTaskDoneData(taskDoneData);
     });
 }
- 
+
 getData()
 
+function handleTaskDoneData(taskDoneData) {
+    window.FirebaseDone = taskDoneData;
+}
+
+function handleTaskInProgData(taskInProgressData) {
+    window.FirebaseProgData = taskInProgressData;
+}
+
+function handleTaskAwaitData(taskAwaitData) {
+    window.DirebaseAwaitData = taskAwaitData;
+}
+
+function handleTaskTodoData(taskTodoData) {
+    window.FirebaseTodo = taskTodoData;
+}
 
 function handleContactData(data) {
-    window.FirebaseContacts = data
+    window.FirebaseContacts = data;
 }
 
