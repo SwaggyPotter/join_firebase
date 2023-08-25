@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-auth.js'
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-analytics.js";
-import { getFirestore, collection, getDocs, getDoc, updateDoc, onSnapshot, addDoc, doc } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js'
+import { getFirestore, collection, getDocs, getDoc, updateDoc, onSnapshot, addDoc, doc, arrayUnion, arrayRemove } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js'
 // TODO: Add SDKs for Firebase products that you want to use
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,7 +25,7 @@ let categories;
 let categoryColors;
 let categoriesBackground;
 let registeredUsers;
-
+let contactsArray = []
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -127,3 +127,26 @@ function handleContactData(data) {
     window.FirebaseContacts = data;
 }
 
+
+
+// Funktion zum Hinzufügen eines neuen Strings zu einem Array in einem Dokument
+window.addStringToArray = async function addStringToArray(newStringValue) {
+    const databaseDocRef = doc(db, 'database', 'contacts'); // Referenz auf das 'contacts'-Dokument
+    const contactsDocSnapshot = await getDoc(databaseDocRef);
+
+    try {
+        if (contactsDocSnapshot.exists()) {
+            const updatedContactsArray = arrayUnion(`${JSON.stringify(newStringValue)}`);
+
+            await updateDoc(contactsDocSnapshot.ref, {
+                contacts: updatedContactsArray
+            });
+
+            console.log("Neuer String erfolgreich zum Array hinzugefügt!");
+        } else {
+            console.log("Das 'contacts'-Dokument existiert nicht.");
+        }
+    } catch (error) {
+        console.error("Fehler beim Hinzufügen des neuen Strings zum Array: ", error);
+    }
+}

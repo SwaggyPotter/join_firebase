@@ -331,7 +331,7 @@ function addNewContact() {
         let newContact = { "name": `${nameAdd[0]}`, "second-name": `${nameAdd[1]}`, "email": `${emailAdd}`, "tel": `${telephoneAdd}` }
         sortedContacts.push(newContact)
         letterCounter = [];
-        addContactToBackend()
+        window.addStringToArray(newContact);
         renderTheQuestContacts()
         clearTheAddInput();
         closeAdd();
@@ -339,14 +339,6 @@ function addNewContact() {
     else {
         openWarning()
     }
-}
-
-
-/**
- * Upload the name to the backend
- */
-async function addContactToBackend() {
-    await backend.setItem('contacts', JSON.stringify(sortedContacts))
 }
 
 
