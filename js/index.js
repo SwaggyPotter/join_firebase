@@ -24,6 +24,7 @@ let taskDoneData;
 let categories;
 let categoryColors;
 let categoriesBackground;
+let registeredUsers;
 
 
 // Initialize Firebase
@@ -63,6 +64,8 @@ async function getData() {
         categories = JSON.stringify(updatedDocumentData[0]['categories']);
         categoryColors = JSON.stringify(updatedDocumentData[2]['categoryColors']);
         categoriesBackground = JSON.stringify(updatedDocumentData[1]['categoriesBackground']);
+        registeredUsers = JSON.stringify(updatedDocumentData[4]['registeredUsers'])
+        handleUser(registeredUsers)
         handleCategories(categories);
         handleCategoryColors(categoryColors);
         handleCategoryBackground(categoriesBackground);
@@ -75,6 +78,22 @@ async function getData() {
 }
 
 getData()
+
+function handleUser(registeredUsers) {
+    window.FireUser = registeredUsers;
+    function parseJsonArray(jsonArrayString) {
+        try {
+            const jsonArray = JSON.parse(jsonArrayString);
+            window.FireUser = jsonArray.map(item => JSON.parse(item));
+        } catch (error) {
+            console.error("Error parsing JSON array:", error);
+            return [];
+        }
+    }
+    const jsonArrayString = window.FireUser;
+    const parsedArray = parseJsonArray(jsonArrayString);
+    console.log(window.FireUser)
+}
 
 function handleCategories(categories) {
     window.FireCategory = categories;

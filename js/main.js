@@ -146,9 +146,8 @@ async function includeHTML() {
  */
 
 function getUsersAsArray() {
-    return JSON.parse(backend.getItem("registeredUsers"));
+    return window.FireUser;
 }
-
 
 /**
  * This function is used to reset the values of the passed input fields
