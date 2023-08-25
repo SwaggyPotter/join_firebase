@@ -150,3 +150,47 @@ window.addStringToArray = async function addStringToArray(newStringValue) {
         console.error("Fehler beim Hinzufügen des neuen Strings zum Array: ", error);
     }
 }
+
+
+
+window.updateContactByEmail = async function updateContactByEmail(email, updatedData) {
+    const databaseDocRef = doc(db, 'database', 'contacts');
+    const contactsDocSnapshot = await getDoc(databaseDocRef);
+
+    try {
+        if (contactsDocSnapshot.exists()) {
+            const currentContactsArray = contactsDocSnapshot.data().contacts || [];
+
+            // Finde den Index des zu aktualisierenden Kontakts im Array anhand der E-Mail-Adresse
+            const contactIndex = currentContactsArray.findIndex(contact => {
+                const parsedContact = JSON.parse(contact);
+                return parsedContact.email === email;
+            });
+
+            if (contactIndex !== -1) {
+                // Konvertiere JSON-Zeichenkette in JavaScript-Objekt
+                const parsedContact = JSON.parse(currentContactsArray[contactIndex]);
+
+                // Aktualisiere die Daten des Kontakts im Objekt
+                const updatedContact = { ...parsedContact, ...updatedData };
+
+                // Konvertiere das aktualisierte Objekt zurück in JSON-Zeichenkette
+                const updatedContactString = JSON.stringify(updatedContact);
+
+                // Aktualisiere das Dokument mit dem aktualisierten Kontakt
+                currentContactsArray[contactIndex] = updatedContactString;
+                await updateDoc(contactsDocSnapshot.ref, {
+                    contacts: currentContactsArray
+                });
+
+                console.log("Kontakt erfolgreich aktualisiert!");
+            } else {
+                console.log("Kontakt nicht gefunden.");
+            }
+        } else {
+            console.log("Das 'contacts'-Dokument existiert nicht.");
+        }
+    } catch (error) {
+        console.error("Fehler beim Aktualisieren des Kontakts: ", error);
+    }
+}

@@ -139,7 +139,7 @@ function saveTheEdit(x) {
         document.getElementById(`edit-input-field`).style.borderColor = 'black';
         firstAndSecondNameUpdate(document.getElementById(`nameInputEdit${x}`).value, x)
         closeEdit();
-        addContactToBackend()
+        window.updateContactByEmail(sortedContacts[x]['email'], { name: sortedContacts[x]['name'], email: sortedContacts[x]['email'], tel: sortedContacts[x]['tel'] })
         renderTheQuestContacts();
         showDetail(x);
     }
