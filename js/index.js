@@ -194,3 +194,40 @@ window.updateContactByEmail = async function updateContactByEmail(email, updated
         console.error("Fehler beim Aktualisieren des Kontakts: ", error);
     }
 }
+
+
+
+window.deleteContactByEmail = async function deleteContactByEmail(emailToDelete) {
+    const databaseDocRef = doc(db, 'database', 'contacts'); // Referenz auf das 'contacts'-Dokument
+    const contactsDocSnapshot = await getDoc(databaseDocRef);
+
+    try {
+        if (contactsDocSnapshot.exists()) {
+            const currentContactsArray = contactsDocSnapshot.data().contacts || []; // Aktuelles Array oder leeres Array, falls es noch nicht existiert
+
+            // Finde den Index des zu löschenden Kontakts im Array anhand der E-Mail-Adresse
+            const contactIndex = currentContactsArray.findIndex(contact => {
+                const parsedContact = JSON.parse(contact);
+                return parsedContact.email === emailToDelete;
+            });
+
+            if (contactIndex !== -1) {
+                // Entferne das Element aus dem Array
+                currentContactsArray.splice(contactIndex, 1);
+
+                // Aktualisiere das Dokument mit dem aktualisierten Array
+                await updateDoc(contactsDocSnapshot.ref, {
+                    contacts: currentContactsArray
+                });
+
+                console.log("Kontakt erfolgreich gelöscht!");
+            } else {
+                console.log("Kontakt nicht gefunden.");
+            }
+        } else {
+            console.log("Das 'contacts'-Dokument existiert nicht.");
+        }
+    } catch (error) {
+        console.error("Fehler beim Löschen des Kontakts: ", error);
+    }
+}
