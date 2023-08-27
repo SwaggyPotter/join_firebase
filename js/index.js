@@ -296,3 +296,40 @@ function wichTypeOfTasks(taskTypeString) {
         return window.FirebaseDone
     }
 }
+
+
+window.updateTask = function updateTask(taskNumber, updatedTaskData, taskTypeString) {
+    const databaseDocRef = doc(db, 'database', taskTypeString);
+    const rawData = wichTypeOfTasks(taskTypeString);
+    const jsonArray = JSON.parse(rawData);
+
+    // Überprüfen, ob der Task-Index im Bereich des Arrays liegt
+    if (taskNumber >= 0 && taskNumber < jsonArray.length) {
+        // Den vorhandenen Task holen
+        const existingTask = jsonArray;
+
+        // Aktualisierte Daten in den vorhandenen Task kopieren
+        Object.assign(existingTask, updatedTaskData);
+
+        // Das aktualisierte JSON-Array zurück in eine Zeichenkette umwandeln
+        const updatedData = JSON.stringify(jsonArray);
+
+        // Feldname dynamisch zusammenstellen
+        const updateField = `${taskTypeString}`;
+
+        // Ein Objekt erstellen, um das Feld dynamisch zuzuweisen
+        const updateObj = {};
+        updateObj[updateField] = updatedData;
+
+        // Das aktualisierte JSON-Array in die Firestore-Datenbank zurückschreiben
+        updateDoc(databaseDocRef, updateObj)
+            .then(() => {
+                console.log("Task erfolgreich aktualisiert.");
+            })
+            .catch(error => {
+                console.error("Fehler beim Aktualisieren des Tasks:", error);
+            });
+    } else {
+        console.error("Ungültiger Task-Index.");
+    }
+}

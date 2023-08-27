@@ -142,7 +142,6 @@ function deleteTask(taskToDelete, x) {
             console.log(taskToDelete)
             delete tasksDone[x];
             window.removeTask(x, 'tasksDone', tasksDone)
-            // window.removeTaskDoneFire(x)
             tasksDone = tasksDone.filter(isGoodValue);
             break;
     }
