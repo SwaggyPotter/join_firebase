@@ -22,7 +22,7 @@ function moveTo(container) {
     const isGoodValue = val => val && val !== '-' && val !== 'N/A'; /* check for empty arrays*/
     target = container['currentTarget']['id'];
     changeTaskPosition(isGoodValue)
-    moveTarget()
+    moveTarget(currentDraggedElement)
 }
 
 
@@ -71,21 +71,29 @@ function changeTaskPositionExtension(isGoodValue, taskTypeString, taskType) {
 /**
  * Push the array into a new array
  */
-function moveTarget() {
+function moveTarget(currentDraggedElement) {
     if (target == 'to-do-container') {
         tasksToDo.push(currentTask);
+        console.log('Kommt von:', currentDraggedElement)
+        console.log('Ziel:tasksToDo', currentTask)
         renderBoard();
     }
     if (target == 'in-progress-container') {
         tasksInProgress.push(currentTask);
+        console.log('Kommt von:', currentDraggedElement)
+        console.log('Ziel:tasksInProgress', currentTask)
         renderBoard();
     }
     if (target == 'await-feedback-container') {
         tasksAwaitFeedback.push(currentTask);
+        console.log('Kommt von:', currentDraggedElement)
+        console.log('Ziel:tasksAwaitFeedback', currentTask)
         renderBoard();
     }
     if (target == 'done-container') {
         tasksDone.push(currentTask);
+        console.log('Kommt von:', currentDraggedElement)
+        console.log('Ziel:tasksDone', currentTask)
         renderBoard();
     }
 }
