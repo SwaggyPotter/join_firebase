@@ -333,3 +333,32 @@ window.updateTask = function updateTask(taskNumber, updatedTaskData, taskTypeStr
         console.error("Ungültiger Task-Index.");
     }
 }
+
+
+window.addNewTask = function addNewTask(newTaskData, taskTypeString) {
+    const databaseDocRef = doc(db, 'database', taskTypeString);
+    const rawData = wichTypeOfTasks(taskTypeString);
+    const jsonArray = JSON.parse(rawData);
+
+    // Neuen Task hinzufügen
+    jsonArray.push(newTaskData);
+
+    // Das aktualisierte JSON-Array zurück in eine Zeichenkette umwandeln
+    const updatedData = JSON.stringify(jsonArray);
+
+    // Feldname dynamisch zusammenstellen
+    const updateField = `${taskTypeString}`;
+
+    // Ein Objekt erstellen, um das Feld dynamisch zuzuweisen
+    const updateObj = {};
+    updateObj[updateField] = updatedData;
+
+    // Das aktualisierte JSON-Array in die Firestore-Datenbank zurückschreiben
+    updateDoc(databaseDocRef, updateObj)
+        .then(() => {
+            console.log("Neuer Task erfolgreich hinzugefügt.");
+        })
+        .catch(error => {
+            console.error("Fehler beim Hinzufügen des neuen Tasks:", error);
+        });
+}

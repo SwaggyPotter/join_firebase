@@ -81,7 +81,6 @@ async function getData() {
  * 
  */
 async function initAddTask() {
-    await downloadFromServer();
     loadTasksFromBackend();
     loadContactsFromBackend();
     loadCategoriesFromBackend();
