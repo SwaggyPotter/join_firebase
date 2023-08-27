@@ -130,7 +130,11 @@ function handleContactData(data) {
 
 
 
-// Funktion zum Hinzufügen eines neuen Strings zu einem Array in einem Dokument
+/**
+ * function to add the new information about the contact to the uploadet array
+ * 
+ * @param {string} newStringValue 
+ */
 window.addStringToArray = async function addStringToArray(newStringValue) {
     const databaseDocRef = doc(db, 'database', 'contacts'); // Referenz auf das 'contacts'-Dokument
     const contactsDocSnapshot = await getDoc(databaseDocRef);
@@ -153,7 +157,12 @@ window.addStringToArray = async function addStringToArray(newStringValue) {
 }
 
 
-
+/**
+ * a function to update the contact. the contact will be find over the email
+ * 
+ * @param {string} email the email from the contact to find the person
+ * @param {*object} updatedData the object with the updatet data of the person
+ */
 window.updateContactByEmail = async function updateContactByEmail(email, updatedData) {
     const databaseDocRef = doc(db, 'database', 'contacts');
     const contactsDocSnapshot = await getDoc(databaseDocRef);
@@ -197,7 +206,11 @@ window.updateContactByEmail = async function updateContactByEmail(email, updated
 }
 
 
-
+/**
+ * A function to delete a contact based on the email in the backend (firebase)
+ * 
+ * @param {string} emailToDelete 
+ */
 window.deleteContactByEmail = async function deleteContactByEmail(emailToDelete) {
     const databaseDocRef = doc(db, 'database', 'contacts'); // Referenz auf das 'contacts'-Dokument
     const contactsDocSnapshot = await getDoc(databaseDocRef);
@@ -233,7 +246,13 @@ window.deleteContactByEmail = async function deleteContactByEmail(emailToDelete)
     }
 }
 
-
+/**
+ * function to remve a task from the board an deleating it in the backend (firebase)
+ * 
+ * @param {number} taskNumber number from the task
+ * @param {string} taskTypeString the name of the tasktype in string form
+ * @param {objekt} taskType the task itfelf
+ */
 window.removeTask = function removeTask(taskNumber, taskTypeString, taskType) {
     const databaseDocRef = doc(db, 'database', taskTypeString);
     const rawData = wichTypeOfTasks(taskTypeString);
