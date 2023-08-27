@@ -23,7 +23,6 @@ function moveTo(container) {
     target = container['currentTarget']['id'];
     changeTaskPosition(isGoodValue)
     moveTarget()
-    saveTasksToBackend();
 }
 
 

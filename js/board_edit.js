@@ -310,7 +310,6 @@ function loadInitials(x) {
  */
 function closeEditedCard() {
     document.getElementById('edit-task').classList.add('d-none');
-    saveTasksToBackend();
     renderBoard();
 }
 
@@ -361,7 +360,6 @@ function changePriority(taskStatus, x, symbol, level) {
             changePriorityExtension(taskStatus, x, symbol, level, tasksDone)
             break;
     }
-    saveTasksToBackend();
 }
 
 

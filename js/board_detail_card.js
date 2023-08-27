@@ -51,7 +51,6 @@ function closeDetailCard(taskStatus, x) {
     getCheckedCheckBoxes(inputElements);
     updateCheckboxChecked(taskStatus, x, checkboxChecked);
     document.getElementById('details').classList.add('d-none');
-    saveTasksToBackend();
     renderBoard();
     document.getElementById('body').style.overflow = 'visible';
 }
@@ -150,6 +149,5 @@ function deleteTask(taskToDelete, x) {
 
 
     closeDetailCard();
-    saveTasksToBackend();
     renderBoard();
 }

@@ -59,15 +59,3 @@ function renderDueDate() {
     document.getElementById('date-picker').innerHTML =
         htmlTemplateDueDate(todayDate);
 }
-
-
-/**
- * this function saves all JSON arrays to the backend
- * 
- */
-async function saveTasksToBackend() {
-    await backend.setItem('tasksToDo', JSON.stringify(tasksToDo));
-    await backend.setItem('tasksInProgress', JSON.stringify(tasksInProgress));
-    await backend.setItem('tasksAwaitFeedback', JSON.stringify(tasksAwaitFeedback));
-    await backend.setItem('tasksDone', JSON.stringify(tasksDone));
-}

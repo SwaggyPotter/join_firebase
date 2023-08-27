@@ -154,7 +154,6 @@ async function saveNewTaskinFolder(data) {
             tasksDone.push(data);
             break;
     }
-    await saveTasksToBackend();
 }
 
 
