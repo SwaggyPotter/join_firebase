@@ -60,7 +60,7 @@ async function getData() {
         taskTodoData = updatedDocumentData[8]['tasksToDo'];
         taskAwaitData = updatedDocumentData[5]['tasksAwaitFeedback'];
         taskInProgressData = updatedDocumentData[7]['tasksInProgress'];
-        taskDoneData = updatedDocumentData[8]['tasksToDo'];
+        taskDoneData = updatedDocumentData[6]['tasksDone'];
         categories = JSON.stringify(updatedDocumentData[0]['categories']);
         categoryColors = JSON.stringify(updatedDocumentData[2]['categoryColors']);
         categoriesBackground = JSON.stringify(updatedDocumentData[1]['categoriesBackground']);
@@ -109,6 +109,7 @@ function handleCategoryBackground(categoriesBackground) {
 
 function handleTaskDoneData(taskDoneData) {
     window.FirebaseDone = taskDoneData;
+    console.log(JSON.parse(window.FirebaseDone))
 }
 
 function handleTaskInProgData(taskInProgressData) {
@@ -229,5 +230,50 @@ window.deleteContactByEmail = async function deleteContactByEmail(emailToDelete)
         }
     } catch (error) {
         console.error("Fehler beim Löschen des Kontakts: ", error);
+    }
+}
+
+
+window.removeTask = function removeTask(taskNumber, taskTypeString, taskType) {
+    const databaseDocRef = doc(db, 'database', taskTypeString);
+    const rawData = wichTypeOfTasks(taskTypeString);
+    const jsonArray = JSON.parse(rawData);
+
+    // JSON-Array mit den Daten extrahieren und aktualisierte Daten vorbereiten
+    const updatedTasks = jsonArray.filter((task, index) => index !== taskNumber);
+
+    // Das aktualisierte JSON-Array zurück in eine Zeichenkette umwandeln
+    const updatedData = JSON.stringify(updatedTasks);
+
+    // Feldname dynamisch zusammenstellen
+    const updateField = `${taskTypeString}`;
+
+    // Ein Objekt erstellen, um das Feld dynamisch zuzuweisen
+    const updateObj = {};
+    updateObj[updateField] = updatedData;
+
+    // Das aktualisierte JSON-Array in die Firestore-Datenbank zurückschreiben
+    updateDoc(databaseDocRef, updateObj)
+        .then(() => {
+            console.log("Task erfolgreich entfernt.");
+        })
+        .catch(error => {
+            console.error("Fehler beim Entfernen des Tasks:", error);
+        });
+}
+
+
+function wichTypeOfTasks(taskTypeString) {
+    if (taskTypeString == 'tasksToDo') {
+        return window.FirebaseTodo
+    }
+    else if (taskTypeString == 'tasksInProgress') {
+        return window.FirebaseProgData
+    }
+    else if (taskTypeString == 'tasksAwaitFeedback') {
+        return window.DirebaseAwaitData
+    }
+    else if (taskTypeString == 'tasksDone') {
+        return window.FirebaseDone
     }
 }

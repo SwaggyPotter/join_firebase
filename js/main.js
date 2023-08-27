@@ -21,7 +21,7 @@ async function loadTasksFromBackend() {
     tasksToDo = JSON.parse(window.FirebaseTodo) || [];
     tasksInProgress = JSON.parse(window.FirebaseProgData) || [];
     tasksAwaitFeedback = JSON.parse(window.DirebaseAwaitData) || [];
-    tasksDone = JSON.parse(window.FirebaseTodo) || [];
+    tasksDone = JSON.parse(window.FirebaseDone) || [];
 }
 
 
@@ -56,15 +56,6 @@ function loadCategoriesFromBackend() {
 }
 
 
-/**
- * This function is used to INIT the backend.
- *
- * @returns {JSON} - Will return a JSON of all saved elements
- */
-
-async function initBackend() {
-    await downloadFromServer();
-}
 
 
 /**
@@ -72,7 +63,6 @@ async function initBackend() {
  * 
  */
 async function initBoard() {
-    await downloadFromServer();
     loadTasksFromBackend(); //firebased
     loadContactsFromBackend(); //firebased
     loadCategoriesFromBackend(); // firebased

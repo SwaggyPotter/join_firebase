@@ -185,7 +185,7 @@ async function loadTasksFromForSummary() {
     tasksToDo = JSON.parse(window.FirebaseTodo) || [];
     tasksInProgress = JSON.parse(window.FirebaseProgData) || [];
     tasksAwaitFeedback = JSON.parse(window.DirebaseAwaitData) || [];
-    tasksDone = JSON.parse(window.FirebaseTodo) || [];
+    tasksDone = JSON.parse(window.FirebaseDone) || [];
     setTheNumbersInHtml()
     checkForUrgentTasks()
     loadTasksDates()

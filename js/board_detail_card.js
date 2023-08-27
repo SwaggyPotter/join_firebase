@@ -124,20 +124,26 @@ function updateCheckboxCheckedExtension(taskStatus, x, checkboxChecked, taskType
 function deleteTask(taskToDelete, x) {
     const isGoodValue = val => val && val !== '-' && val !== 'N/A'; /* check for empty arrays*/
     switch (taskToDelete) {
-        case 'tasksToDo':
+        case tasksToDo:
             delete tasksToDo[x];
+            window.removeTask(x, 'tasksToDo', tasksToDo)
             tasksToDo = tasksToDo.filter(isGoodValue);
             break;
-        case 'tasksInProgress':
+        case tasksInProgress:
             delete tasksInProgress[x];
+            window.removeTask(x, 'tasksInProgress', tasksInProgress)
             tasksInProgress = tasksInProgress.filter(isGoodValue);
             break;
-        case 'tasksAwaitFeedback':
+        case tasksAwaitFeedback:
             delete tasksAwaitFeedback[x];
+            window.removeTask(x, 'tasksAwaitFeedback', tasksAwaitFeedback)
             tasksAwaitFeedback = tasksAwaitFeedback.filter(isGoodValue);
             break;
-        case 'tasksDone':
+        case tasksDone:
+            console.log(taskToDelete)
             delete tasksDone[x];
+            window.removeTask(x, 'tasksDone', tasksDone)
+            // window.removeTaskDoneFire(x)
             tasksDone = tasksDone.filter(isGoodValue);
             break;
     }
