@@ -53,9 +53,9 @@ function resetPriorityBtn() {
 /**
  * this function renders the date picker with today´s date
  * 
- */
+ 
 function renderDueDate() {
     let todayDate = new Date().toISOString().split('T')[0];
-    document.getElementById('date-picker').innerHTML =
-        htmlTemplateDueDate(todayDate);
-}
+    document.getElementById('date-picker').innerHTML = htmlTemplateDueDate(todayDate);
+
+}*/
