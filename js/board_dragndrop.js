@@ -74,26 +74,29 @@ function changeTaskPositionExtension(isGoodValue, taskTypeString, taskType) {
 function moveTarget(currentDraggedElement) {
     if (target == 'to-do-container') {
         tasksToDo.push(currentTask);
-        console.log('Kommt von:', currentDraggedElement)
-        console.log('Ziel:tasksToDo', currentTask)
+        console.log(movedTask)
+        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+        window.addNewTask(currentTask, 'tasksToDo')
         renderBoard();
     }
     if (target == 'in-progress-container') {
         tasksInProgress.push(currentTask);
-        console.log('Kommt von:', currentDraggedElement)
-        console.log('Ziel:tasksInProgress', currentTask)
+        window.addNewTask(currentTask, 'tasksInProgress')
+        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
         renderBoard();
     }
     if (target == 'await-feedback-container') {
+        console.log('nicht verschieben!')
         tasksAwaitFeedback.push(currentTask);
-        console.log('Kommt von:', currentDraggedElement)
-        console.log('Ziel:tasksAwaitFeedback', currentTask)
+        window.addNewTask(currentTask, 'tasksAwaitFeedback')
+        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
         renderBoard();
+
     }
     if (target == 'done-container') {
         tasksDone.push(currentTask);
-        console.log('Kommt von:', currentDraggedElement)
-        console.log('Ziel:tasksDone', currentTask)
+        window.addNewTask(currentTask, 'tasksDone')
+        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
         renderBoard();
     }
 }
