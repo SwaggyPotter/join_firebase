@@ -73,31 +73,50 @@ function changeTaskPositionExtension(isGoodValue, taskTypeString, taskType) {
  */
 function moveTarget(currentDraggedElement) {
     if (target == 'to-do-container') {
-        tasksToDo.push(currentTask);
-        console.log(movedTask)
-        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
-        window.addNewTask(currentTask, 'tasksToDo')
-        renderBoard();
+        if (currentDraggedElement == 'tasksToDo') {
+            console.log('Nicht verschieben!')
+        }
+        else {
+            tasksToDo.push(currentTask);
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+            window.addNewTask(currentTask, 'tasksToDo')
+            renderBoard();
+        }
     }
     if (target == 'in-progress-container') {
-        tasksInProgress.push(currentTask);
-        window.addNewTask(currentTask, 'tasksInProgress')
-        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
-        renderBoard();
+        if (currentDraggedElement == 'tasksInProgress') {
+            console.log('Nicht verschieben!')
+        }
+        else {
+            tasksInProgress.push(currentTask);
+            window.addNewTask(currentTask, 'tasksInProgress')
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+            renderBoard();
+        }
     }
     if (target == 'await-feedback-container') {
-        console.log('nicht verschieben!')
-        tasksAwaitFeedback.push(currentTask);
-        window.addNewTask(currentTask, 'tasksAwaitFeedback')
-        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
-        renderBoard();
+        if (currentDraggedElement == 'tasksAwaitFeedback') {
+            console.log(currentDraggedElement)
+        }
+        else {
+            tasksAwaitFeedback.push(currentTask);
+            window.addNewTask(currentTask, 'tasksAwaitFeedback')
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+            renderBoard();
+        }
 
     }
     if (target == 'done-container') {
-        tasksDone.push(currentTask);
-        window.addNewTask(currentTask, 'tasksDone')
-        window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
-        renderBoard();
+        if (currentDraggedElement == 'tasksDone') {
+            console.log('Nicht verschieben!')
+        }
+        else {
+            tasksDone.push(currentTask);
+            window.addNewTask(currentTask, 'tasksDone')
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+            renderBoard();
+        }
+
     }
 }
 

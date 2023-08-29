@@ -26,17 +26,10 @@
     <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-storage-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-database-compat.js"></script>
     <script type="module" src="js/index.js"></script>
-    <script>
-        function initializeBackendAfterDelay() {
-            setTimeout(function () {
-                initBackend();
-                
-            }, 1000); // 1000 Millisekunden entsprechen 1 Sekunde
-        }
-    </script>
+    
 </head>
 
-<body class="start-page index" onload="initializeBackendAfterDelay()">
+<body class="start-page index">
     <div class="intro" id="intro"></div>
     <div class="container">
         <div class="center">

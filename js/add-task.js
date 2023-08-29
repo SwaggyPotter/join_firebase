@@ -94,7 +94,6 @@ async function addTask() {
     let dueDate = document.getElementById('due-date').value;
     getSubTasks();
     await pushTask(title, text, dueDate);
-    
     //window.location.href = "board.html";
 }
 
@@ -272,6 +271,8 @@ function getAssignedTo() {
         }
     }
     checkEmptyAssignedTo(assignedTo);
+    renderBoard();
+    closeAddTask()
 }
 
 

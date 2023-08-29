@@ -139,14 +139,11 @@ function deleteTask(taskToDelete, x) {
             tasksAwaitFeedback = tasksAwaitFeedback.filter(isGoodValue);
             break;
         case tasksDone:
-            console.log(taskToDelete)
             delete tasksDone[x];
             window.removeTask(x, 'tasksDone', tasksDone)
             tasksDone = tasksDone.filter(isGoodValue);
             break;
     }
-
-
     closeDetailCard();
     renderBoard();
 }

@@ -6,7 +6,6 @@ function login() {
     let email = document.getElementById("login-mail");
     let password = document.getElementById("login-password");
     let allUsersAsArray = getUsersAsArray();
-    console.log(getUsersAsArray())
     if (allUsersAsArray != null) { // If users exists in the backend
         let userToReset = allUsersAsArray.filter((user) => user.email == email.value);
         let userCanLogin = loginValidation(userToReset, email, password, 1);
@@ -71,7 +70,6 @@ async function register() {
         }
 
     } else {
-
         let newUser = { "name": name.value, "email": email.value, "password": password.value }
         await window.addNewUser(newUser);
     }
@@ -133,7 +131,7 @@ function printSuccessMessage(success) {
 
 function recoverPassword() {
     let email = document.getElementById("password-reset-email");
-    let allUsersAsArray = getUsersAsArray();
+    let allUsersAsArray = window.FireUser;
     if (email && allUsersAsArray != null) {
         let userExists = allUsersAsArray.find(u => u.email == email.value);
         if (userExists) {

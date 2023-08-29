@@ -36,12 +36,10 @@ async function getData() {
     const databaseCollection = collection(db, 'database');
     const dataSnapshot = await getDocs(databaseCollection);
     const documentData = dataSnapshot.docs.map(doc => doc.data());
-    //const DataAsJSON = JSON.stringify(documentData);
 
     // Hier fügst du den Code für die Echtzeitaktualisierung hinzu
     onSnapshot(databaseCollection, (querySnapshot) => {
         const updatedDocumentData = querySnapshot.docs.map(doc => doc.data());
-        //console.log("Updated data in real-time:", updatedDocumentData);
         // Hier kannst du die aktualisierten Daten im Browser rendern oder verwenden
         const data = {
             "categories": JSON.stringify(updatedDocumentData[0]['categories']),
@@ -77,39 +75,40 @@ async function getData() {
     });
 }
 
+
 getData()
+
 
 function handleUser(registeredUsers) {
     window.FireUser = registeredUsers;
     function parseJsonArray(jsonArrayString) {
-        try {
-            const jsonArray = JSON.parse(jsonArrayString);
-            window.FireUser = jsonArray.map(item => JSON.parse(item));
-        } catch (error) {
-            console.error("Error parsing JSON array:", error);
-            return [];
-        }
+        const jsonArray = JSON.parse(jsonArrayString);
+        window.FireUser = jsonArray.map(item => JSON.parse(item));
     }
     const jsonArrayString = window.FireUser;
     const parsedArray = parseJsonArray(jsonArrayString);
-    console.log(window.FireUser)
 }
+
 
 function handleCategories(categories) {
     window.FireCategory = categories;
 }
 
+
 function handleCategoryColors(categoryColors) {
     window.FireCategoryColors = categoryColors;
 }
+
 
 function handleCategoryBackground(categoriesBackground) {
     window.FireCategoryBackground = categoriesBackground;
 }
 
+
 function handleTaskDoneData(taskDoneData) {
     window.FirebaseDone = taskDoneData;
 }
+
 
 function handleTaskInProgData(taskInProgressData) {
     window.FirebaseProgData = taskInProgressData;
@@ -119,14 +118,15 @@ function handleTaskAwaitData(taskAwaitData) {
     window.DirebaseAwaitData = taskAwaitData;
 }
 
+
 function handleTaskTodoData(taskTodoData) {
     window.FirebaseTodo = taskTodoData;
 }
 
+
 function handleContactData(data) {
     window.FirebaseContacts = data;
 }
-
 
 
 /**
@@ -137,21 +137,11 @@ function handleContactData(data) {
 window.addStringToArray = async function addStringToArray(newStringValue) {
     const databaseDocRef = doc(db, 'database', 'contacts'); // Referenz auf das 'contacts'-Dokument
     const contactsDocSnapshot = await getDoc(databaseDocRef);
-
-    try {
-        if (contactsDocSnapshot.exists()) {
-            const updatedContactsArray = arrayUnion(`${JSON.stringify(newStringValue)}`);
-
-            await updateDoc(contactsDocSnapshot.ref, {
-                contacts: updatedContactsArray
-            });
-
-            console.log("Neuer String erfolgreich zum Array hinzugefügt!");
-        } else {
-            console.log("Das 'contacts'-Dokument existiert nicht.");
-        }
-    } catch (error) {
-        console.error("Fehler beim Hinzufügen des neuen Strings zum Array: ", error);
+    if (contactsDocSnapshot.exists()) {
+        const updatedContactsArray = arrayUnion(`${JSON.stringify(newStringValue)}`);
+        await updateDoc(contactsDocSnapshot.ref, {
+            contacts: updatedContactsArray
+        });
     }
 }
 
@@ -165,42 +155,29 @@ window.addStringToArray = async function addStringToArray(newStringValue) {
 window.updateContactByEmail = async function updateContactByEmail(email, updatedData) {
     const databaseDocRef = doc(db, 'database', 'contacts');
     const contactsDocSnapshot = await getDoc(databaseDocRef);
+    if (contactsDocSnapshot.exists()) {
+        const currentContactsArray = contactsDocSnapshot.data().contacts || [];
+        // Finde den Index des zu aktualisierenden Kontakts im Array anhand der E-Mail-Adresse
+        const contactIndex = currentContactsArray.findIndex(contact => {
+            const parsedContact = JSON.parse(contact);
+            return parsedContact.email === email;
+        });
+        if (contactIndex !== -1) {
+            // Konvertiere JSON-Zeichenkette in JavaScript-Objekt
+            const parsedContact = JSON.parse(currentContactsArray[contactIndex]);
 
-    try {
-        if (contactsDocSnapshot.exists()) {
-            const currentContactsArray = contactsDocSnapshot.data().contacts || [];
+            // Aktualisiere die Daten des Kontakts im Objekt
+            const updatedContact = { ...parsedContact, ...updatedData };
 
-            // Finde den Index des zu aktualisierenden Kontakts im Array anhand der E-Mail-Adresse
-            const contactIndex = currentContactsArray.findIndex(contact => {
-                const parsedContact = JSON.parse(contact);
-                return parsedContact.email === email;
+            // Konvertiere das aktualisierte Objekt zurück in JSON-Zeichenkette
+            const updatedContactString = JSON.stringify(updatedContact);
+
+            // Aktualisiere das Dokument mit dem aktualisierten Kontakt
+            currentContactsArray[contactIndex] = updatedContactString;
+            await updateDoc(contactsDocSnapshot.ref, {
+                contacts: currentContactsArray
             });
-
-            if (contactIndex !== -1) {
-                // Konvertiere JSON-Zeichenkette in JavaScript-Objekt
-                const parsedContact = JSON.parse(currentContactsArray[contactIndex]);
-
-                // Aktualisiere die Daten des Kontakts im Objekt
-                const updatedContact = { ...parsedContact, ...updatedData };
-
-                // Konvertiere das aktualisierte Objekt zurück in JSON-Zeichenkette
-                const updatedContactString = JSON.stringify(updatedContact);
-
-                // Aktualisiere das Dokument mit dem aktualisierten Kontakt
-                currentContactsArray[contactIndex] = updatedContactString;
-                await updateDoc(contactsDocSnapshot.ref, {
-                    contacts: currentContactsArray
-                });
-
-                console.log("Kontakt erfolgreich aktualisiert!");
-            } else {
-                console.log("Kontakt nicht gefunden.");
-            }
-        } else {
-            console.log("Das 'contacts'-Dokument existiert nicht.");
         }
-    } catch (error) {
-        console.error("Fehler beim Aktualisieren des Kontakts: ", error);
     }
 }
 
@@ -213,37 +190,24 @@ window.updateContactByEmail = async function updateContactByEmail(email, updated
 window.deleteContactByEmail = async function deleteContactByEmail(emailToDelete) {
     const databaseDocRef = doc(db, 'database', 'contacts'); // Referenz auf das 'contacts'-Dokument
     const contactsDocSnapshot = await getDoc(databaseDocRef);
-
-    try {
-        if (contactsDocSnapshot.exists()) {
-            const currentContactsArray = contactsDocSnapshot.data().contacts || []; // Aktuelles Array oder leeres Array, falls es noch nicht existiert
-
-            // Finde den Index des zu löschenden Kontakts im Array anhand der E-Mail-Adresse
-            const contactIndex = currentContactsArray.findIndex(contact => {
-                const parsedContact = JSON.parse(contact);
-                return parsedContact.email === emailToDelete;
+    if (contactsDocSnapshot.exists()) {
+        const currentContactsArray = contactsDocSnapshot.data().contacts || []; // Aktuelles Array oder leeres Array, falls es noch nicht existiert
+        // Finde den Index des zu löschenden Kontakts im Array anhand der E-Mail-Adresse
+        const contactIndex = currentContactsArray.findIndex(contact => {
+            const parsedContact = JSON.parse(contact);
+            return parsedContact.email === emailToDelete;
+        });
+        if (contactIndex !== -1) {
+            // Entferne das Element aus dem Array
+            currentContactsArray.splice(contactIndex, 1);
+            // Aktualisiere das Dokument mit dem aktualisierten Array
+            await updateDoc(contactsDocSnapshot.ref, {
+                contacts: currentContactsArray
             });
-
-            if (contactIndex !== -1) {
-                // Entferne das Element aus dem Array
-                currentContactsArray.splice(contactIndex, 1);
-
-                // Aktualisiere das Dokument mit dem aktualisierten Array
-                await updateDoc(contactsDocSnapshot.ref, {
-                    contacts: currentContactsArray
-                });
-
-                console.log("Kontakt erfolgreich gelöscht!");
-            } else {
-                console.log("Kontakt nicht gefunden.");
-            }
-        } else {
-            console.log("Das 'contacts'-Dokument existiert nicht.");
         }
-    } catch (error) {
-        console.error("Fehler beim Löschen des Kontakts: ", error);
     }
 }
+
 
 /**
  * function to remve a task from the board an deleating it in the backend (firebase)
@@ -272,12 +236,6 @@ window.removeTask = function removeTask(taskNumber, taskTypeString, taskType) {
 
     // Das aktualisierte JSON-Array in die Firestore-Datenbank zurückschreiben
     updateDoc(databaseDocRef, updateObj)
-        .then(() => {
-            console.log("Task erfolgreich entfernt.");
-        })
-        .catch(error => {
-            console.error("Fehler beim Entfernen des Tasks:", error);
-        });
 }
 
 
@@ -301,7 +259,6 @@ window.updateTask = function updateTask(taskNumber, updatedTaskData, taskTypeStr
     const databaseDocRef = doc(db, 'database', taskTypeString);
     const rawData = wichTypeOfTasks(taskTypeString);
     const jsonArray = JSON.parse(rawData);
-
     // Überprüfen, ob der Task-Index im Bereich des Arrays liegt
     if (taskNumber >= 0 && taskNumber < jsonArray.length) {
         // Den vorhandenen Task holen
@@ -322,14 +279,6 @@ window.updateTask = function updateTask(taskNumber, updatedTaskData, taskTypeStr
 
         // Das aktualisierte JSON-Array in die Firestore-Datenbank zurückschreiben
         updateDoc(databaseDocRef, updateObj)
-            .then(() => {
-                console.log("Task erfolgreich aktualisiert.");
-            })
-            .catch(error => {
-                console.error("Fehler beim Aktualisieren des Tasks:", error);
-            });
-    } else {
-        console.error("Ungültiger Task-Index.");
     }
 }
 
@@ -338,48 +287,28 @@ window.addNewTask = function addNewTask(newTaskData, taskTypeString) {
     const databaseDocRef = doc(db, 'database', taskTypeString);
     const rawData = wichTypeOfTasks(taskTypeString);
     const jsonArray = JSON.parse(rawData);
-
     // Neuen Task hinzufügen
     jsonArray.push(newTaskData);
-
     // Das aktualisierte JSON-Array zurück in eine Zeichenkette umwandeln
     const updatedData = JSON.stringify(jsonArray);
-
     // Feldname dynamisch zusammenstellen
     const updateField = `${taskTypeString}`;
-
     // Ein Objekt erstellen, um das Feld dynamisch zuzuweisen
     const updateObj = {};
     updateObj[updateField] = updatedData;
-
     // Das aktualisierte JSON-Array in die Firestore-Datenbank zurückschreiben
     updateDoc(databaseDocRef, updateObj)
-        .then(() => {
-            console.log("Neuer Task erfolgreich hinzugefügt.");
-        })
-        .catch(error => {
-            console.error("Fehler beim Hinzufügen des neuen Tasks:", error);
-        });
 }
 
 
 window.addNewUser = async function addStringToArray(newStringValue) {
     const databaseDocRef = doc(db, 'database', 'registeredUsers'); // Referenz auf das 'contacts'-Dokument
     const usersDocSnapshot = await getDoc(databaseDocRef);
+    if (usersDocSnapshot.exists()) {
+        const updatedUsersArray = arrayUnion(`${JSON.stringify(newStringValue)}`);
+        await updateDoc(usersDocSnapshot.ref, {
+            registeredUsers: updatedUsersArray
+        });
 
-    try {
-        if (usersDocSnapshot.exists()) {
-            const updatedUsersArray = arrayUnion(`${JSON.stringify(newStringValue)}`);
-
-            await updateDoc(usersDocSnapshot.ref, {
-                registeredUsers: updatedUsersArray
-            });
-
-            console.log("Neuer String erfolgreich zum Array hinzugefügt!");
-        } else {
-            console.log("Das 'contacts'-Dokument existiert nicht.");
-        }
-    } catch (error) {
-        console.error("Fehler beim Hinzufügen des neuen Strings zum Array: ", error);
     }
 }
