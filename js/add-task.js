@@ -119,7 +119,7 @@ async function pushTask(title, text, dueDate) {
         alreadyDone: []
     };
     getCheckboxes()
-    
+
     await saveNewTaskinFolder(data);
 }
 
