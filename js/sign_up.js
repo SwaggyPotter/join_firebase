@@ -58,8 +58,7 @@ async function register() {
     let name = document.getElementById("signup-name");
     let email = document.getElementById("signup-mail");
     let password = document.getElementById("signup-password");
-    getSavedUsersFromBackend();
-    let allUsersAsArray = getUsersAsArray();
+    let allUsersAsArray = window.FireUser;
 
     if (allUsersAsArray != null) {
         let userAlreadyExists = allUsersAsArray.some(obj => obj.email === email.value);
@@ -67,11 +66,14 @@ async function register() {
             printErrorMessage("User already exists!");
             emptyValues(email, password);
         } else {
-            await pushToUsersArray(users, name, email, password);
+            let newUser = { "name": name.value, "email": email.value, "password": password.value }
+            await window.addNewUser(newUser);
         }
 
     } else {
-        await pushToUsersArray(users, name, email, password);
+
+        let newUser = { "name": name.value, "email": email.value, "password": password.value }
+        await window.addNewUser(newUser);
     }
 }
 

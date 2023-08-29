@@ -109,7 +109,6 @@ function handleCategoryBackground(categoriesBackground) {
 
 function handleTaskDoneData(taskDoneData) {
     window.FirebaseDone = taskDoneData;
-    console.log(JSON.parse(window.FirebaseDone))
 }
 
 function handleTaskInProgData(taskInProgressData) {
@@ -361,4 +360,26 @@ window.addNewTask = function addNewTask(newTaskData, taskTypeString) {
         .catch(error => {
             console.error("Fehler beim Hinzufügen des neuen Tasks:", error);
         });
+}
+
+
+window.addNewUser = async function addStringToArray(newStringValue) {
+    const databaseDocRef = doc(db, 'database', 'registeredUsers'); // Referenz auf das 'contacts'-Dokument
+    const usersDocSnapshot = await getDoc(databaseDocRef);
+
+    try {
+        if (usersDocSnapshot.exists()) {
+            const updatedUsersArray = arrayUnion(`${JSON.stringify(newStringValue)}`);
+
+            await updateDoc(usersDocSnapshot.ref, {
+                registeredUsers: updatedUsersArray
+            });
+
+            console.log("Neuer String erfolgreich zum Array hinzugefügt!");
+        } else {
+            console.log("Das 'contacts'-Dokument existiert nicht.");
+        }
+    } catch (error) {
+        console.error("Fehler beim Hinzufügen des neuen Strings zum Array: ", error);
+    }
 }
