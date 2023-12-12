@@ -12,6 +12,14 @@ function renderBoard() {
     renderAllTasks(tasksInProgress)
     renderAllTasks(tasksAwaitFeedback)
     renderAllTasks(tasksDone)
+    document.getElementById('done-container').style.marginTop = '0px'
+    document.getElementById('await-feedback-container').style.marginTop = '0px'
+    document.getElementById('in-progress-container').style.marginTop = '0px'
+    document.getElementById('to-do-container').style.marginTop = '0px'
+    document.getElementById('doneContainer').style.display = 'none'
+    document.getElementById('inProgressContainer').style.display = 'none'
+    document.getElementById('awaitContainer').style.display = 'none'
+    document.getElementById('todoContainer').style.display = 'none'
 }
 
 
