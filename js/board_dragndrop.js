@@ -10,8 +10,29 @@ let movedTask;
  */
 function allowDrop(ev) {
     ev.preventDefault();
-    console.log(ev['srcElement']['id'])
-    console.log(ev['toElement']['id'])
+    //console.log(ev['srcElement']['id'])
+    if (ev['toElement']['id'] == 'to-do-container') {
+        console.log('todoContainer')
+        document.getElementById('to-do-container').style.marginTop = '200px'
+        document.getElementById('todoContainer').style.display = 'flex'
+    }
+    if (ev['toElement']['id'] == 'await-feedback-container') {
+        console.log('await')
+        //document.getElementById('to-do-container').style.marginTop = '200px'
+    }
+    if (ev['toElement']['id'] == 'in-progress-container') {
+        console.log('progress')
+        //document.getElementById('to-do-container').style.marginTop = '200px'
+    }
+    if (ev['toElement']['id'] == 'done-container') {
+        console.log('done')
+        //document.getElementById('to-do-container').style.marginTop = '200px'
+    }
+    else{
+        document.getElementById('to-do-container').style.marginTop = '0'
+        document.getElementById('todoContainer').style.display = 'none'
+    }
+    //console.log(ev['toElement']['id'])
 }
 
 

@@ -1,4 +1,14 @@
-.dummy{
+.dummy {
+    display: none;
+    width: 214px;
+    height: 192px;
+    background-color: rgba(128, 128, 128, 0.185);
+    position: absolute;
+    top: -190px;
+}
+
+#todoContainer {
+    display: none;
     width: 214px;
     height: 192px;
     background-color: rgba(128, 128, 128, 0.185);
