@@ -76,8 +76,10 @@ function getCategoryColor(category) {
  * @param {array} tasktype 
  */
 function renderAllTasks(tasktype) {
+    console.log(tasktype)
     let taskContainer = document.getElementById(`${giveBackTheTaskTheme(tasktype)}`);
     taskContainer.innerHTML = '';
+    setAllDummys(taskContainer, tasktype);
     for (let i = 0; i < tasktype.length; i++) {
         let category = tasktype[i]['category'];
         getCategoryColor(`${category}`);
@@ -86,6 +88,22 @@ function renderAllTasks(tasktype) {
         taskContainer.innerHTML +=
             htmlTemplateTasks(i, widthProgressBar, nbDone, tasktype);
         renderSelectedPerson(i, tasktype);
+    }
+}
+
+
+function setAllDummys(taskContainer, tasktype) {
+    if (giveBackTheTaskTheme(tasktype) == 'to-do-container') {
+        taskContainer.innerHTML += `  <div class="dummy" id="todoContainer"></div>`
+    }
+    if (giveBackTheTaskTheme(tasktype) == 'in-progress-container') {
+        taskContainer.innerHTML += `  <div class="dummy" id="inProgressContainer"></div>`
+    }
+    if (giveBackTheTaskTheme(tasktype) == 'await-feedback-container') {
+        taskContainer.innerHTML += `  <div class="dummy" id="awaitContainer"></div>`
+    }
+    if (giveBackTheTaskTheme(tasktype) == 'done-container') {
+        taskContainer.innerHTML += `  <div class="dummy" id="doneContainer"></div>`
     }
 }
 

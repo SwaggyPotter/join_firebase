@@ -39,6 +39,7 @@ function loadContactsFromBackend() {
  * @returns an objekt
  */
 function parseContactData(jsonStrings) {
+    
     const contacts = jsonStrings.map(jsonString => JSON.parse(jsonString));
     return contacts;
 }

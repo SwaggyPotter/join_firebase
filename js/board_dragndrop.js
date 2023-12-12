@@ -10,6 +10,8 @@ let movedTask;
  */
 function allowDrop(ev) {
     ev.preventDefault();
+    console.log(ev['srcElement']['id'])
+    console.log(ev['toElement']['id'])
 }
 
 
@@ -74,7 +76,6 @@ function changeTaskPositionExtension(isGoodValue, taskTypeString, taskType) {
 function moveTarget(currentDraggedElement) {
     if (target == 'to-do-container') {
         if (currentDraggedElement == 'tasksToDo') {
-            console.log('Nicht verschieben!')
         }
         else {
             tasksToDo.push(currentTask);
@@ -85,7 +86,6 @@ function moveTarget(currentDraggedElement) {
     }
     if (target == 'in-progress-container') {
         if (currentDraggedElement == 'tasksInProgress') {
-            console.log('Nicht verschieben!')
         }
         else {
             tasksInProgress.push(currentTask);
@@ -96,7 +96,6 @@ function moveTarget(currentDraggedElement) {
     }
     if (target == 'await-feedback-container') {
         if (currentDraggedElement == 'tasksAwaitFeedback') {
-            console.log(currentDraggedElement)
         }
         else {
             tasksAwaitFeedback.push(currentTask);
@@ -108,7 +107,6 @@ function moveTarget(currentDraggedElement) {
     }
     if (target == 'done-container') {
         if (currentDraggedElement == 'tasksDone') {
-            console.log('Nicht verschieben!')
         }
         else {
             tasksDone.push(currentTask);
@@ -128,6 +126,7 @@ function moveTarget(currentDraggedElement) {
  * @param {string} taskStatus 
  */
 function startDragging(i, taskStatus) {
+    console.log(taskStatus)
     movedTask = i;
     currentDraggedElement = taskStatus;
 }

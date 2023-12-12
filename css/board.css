@@ -1,3 +1,11 @@
+.dummy{
+    width: 214px;
+    height: 192px;
+    background-color: rgba(128, 128, 128, 0.185);
+    position: absolute;
+    top: -190px;
+}
+
 .menu-bar {
     display: flex;
     flex-direction: row;
@@ -106,6 +114,7 @@
 .task-container {
     min-height: 80%;
     width: 240px;
+    position: relative;
 }
 
 .task-container-detail {
