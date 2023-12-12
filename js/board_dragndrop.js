@@ -12,27 +12,45 @@ function allowDrop(ev) {
     ev.preventDefault();
     //console.log(ev['srcElement']['id'])
     if (ev['toElement']['id'] == 'to-do-container') {
-        console.log('todoContainer')
         document.getElementById('to-do-container').style.marginTop = '200px'
         document.getElementById('todoContainer').style.display = 'flex'
+        document.getElementById('await-feedback-container').style.marginTop = '0px'
+        document.getElementById('awaitContainer').style.display = 'none'
+        document.getElementById('in-progress-container').style.marginTop = '0px'
+        document.getElementById('inProgressContainer').style.display = 'none'
+        document.getElementById('done-container').style.marginTop = '0px'
+        document.getElementById('doneContainer').style.display = 'none'
     }
     if (ev['toElement']['id'] == 'await-feedback-container') {
-        console.log('await')
-        //document.getElementById('to-do-container').style.marginTop = '200px'
+        document.getElementById('to-do-container').style.marginTop = '0px'
+        document.getElementById('todoContainer').style.display = 'none'
+        document.getElementById('await-feedback-container').style.marginTop = '200px'
+        document.getElementById('awaitContainer').style.display = 'flex'
+        document.getElementById('in-progress-container').style.marginTop = '0px'
+        document.getElementById('inProgressContainer').style.display = 'none'
+        document.getElementById('done-container').style.marginTop = '0px'
+        document.getElementById('doneContainer').style.display = 'none'
     }
     if (ev['toElement']['id'] == 'in-progress-container') {
-        console.log('progress')
-        //document.getElementById('to-do-container').style.marginTop = '200px'
+        document.getElementById('to-do-container').style.marginTop = '0px'
+        document.getElementById('todoContainer').style.display = 'none'
+        document.getElementById('await-feedback-container').style.marginTop = '0px'
+        document.getElementById('awaitContainer').style.display = 'none'
+        document.getElementById('in-progress-container').style.marginTop = '200px'
+        document.getElementById('inProgressContainer').style.display = 'flex'
+        document.getElementById('done-container').style.marginTop = '0px'
+        document.getElementById('doneContainer').style.display = 'none'
     }
     if (ev['toElement']['id'] == 'done-container') {
-        console.log('done')
-        //document.getElementById('to-do-container').style.marginTop = '200px'
-    }
-    else{
-        document.getElementById('to-do-container').style.marginTop = '0'
+        document.getElementById('to-do-container').style.marginTop = '0px'
         document.getElementById('todoContainer').style.display = 'none'
+        document.getElementById('await-feedback-container').style.marginTop = '0px'
+        document.getElementById('awaitContainer').style.display = 'none'
+        document.getElementById('in-progress-container').style.marginTop = '0px'
+        document.getElementById('inProgressContainer').style.display = 'none'
+        document.getElementById('done-container').style.marginTop = '200px'
+        document.getElementById('doneContainer').style.display = 'flex'
     }
-    //console.log(ev['toElement']['id'])
 }
 
 
