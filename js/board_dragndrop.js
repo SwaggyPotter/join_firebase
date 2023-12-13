@@ -1,17 +1,21 @@
 let currentDraggedElement;
 let taskStatus;
 let movedTask;
-
+let srcCounter = 0;
+let taskSrc;
 
 /**
  * this function allows to drop an element
  * 
  * @param {Event} ev 
  */
-function allowDrop(ev) {
+function allowDrop(ev, taskID) {
     ev.preventDefault();
-    //console.log(ev['srcElement']['id'])
-    if (ev['toElement']['id'] == 'to-do-container') {
+    if (srcCounter === 0) {
+        srcCounter++
+        taskSrc = taskID;
+    }
+    if (ev['toElement']['id'] == 'to-do-container' && taskSrc != 'to-do-container') {
         document.getElementById('to-do-container').style.marginTop = '200px'
         document.getElementById('todoContainer').style.display = 'flex'
         document.getElementById('await-feedback-container').style.marginTop = '0px'
@@ -21,7 +25,7 @@ function allowDrop(ev) {
         document.getElementById('done-container').style.marginTop = '0px'
         document.getElementById('doneContainer').style.display = 'none'
     }
-    if (ev['toElement']['id'] == 'await-feedback-container') {
+    if (ev['toElement']['id'] == 'await-feedback-container' && taskSrc != 'await-feedback-container') {
         document.getElementById('to-do-container').style.marginTop = '0px'
         document.getElementById('todoContainer').style.display = 'none'
         document.getElementById('await-feedback-container').style.marginTop = '200px'
@@ -31,7 +35,7 @@ function allowDrop(ev) {
         document.getElementById('done-container').style.marginTop = '0px'
         document.getElementById('doneContainer').style.display = 'none'
     }
-    if (ev['toElement']['id'] == 'in-progress-container') {
+    if (ev['toElement']['id'] == 'in-progress-container' && taskSrc != 'in-progress-container') {
         document.getElementById('to-do-container').style.marginTop = '0px'
         document.getElementById('todoContainer').style.display = 'none'
         document.getElementById('await-feedback-container').style.marginTop = '0px'
@@ -41,7 +45,7 @@ function allowDrop(ev) {
         document.getElementById('done-container').style.marginTop = '0px'
         document.getElementById('doneContainer').style.display = 'none'
     }
-    if (ev['toElement']['id'] == 'done-container') {
+    if (ev['toElement']['id'] == 'done-container' && taskSrc != 'done-container') {
         document.getElementById('to-do-container').style.marginTop = '0px'
         document.getElementById('todoContainer').style.display = 'none'
         document.getElementById('await-feedback-container').style.marginTop = '0px'
@@ -59,11 +63,16 @@ function allowDrop(ev) {
  * 
  * @param {string} container 
  */
-function moveTo(container) {
-    const isGoodValue = val => val && val !== '-' && val !== 'N/A'; /* check for empty arrays*/
-    target = container['currentTarget']['id'];
-    changeTaskPosition(isGoodValue)
-    moveTarget(currentDraggedElement)
+function moveTo(container, item) {
+    if (item != taskSrc) {
+        const isGoodValue = val => val && val !== '-' && val !== 'N/A'; /* check for empty arrays*/
+        target = container['currentTarget']['id'];
+        changeTaskPosition(isGoodValue)
+        moveTarget(currentDraggedElement)
+    } else {
+        console.log('Nönönönönön')
+    }
+
 }
 
 
@@ -118,8 +127,9 @@ function moveTarget(currentDraggedElement) {
         }
         else {
             tasksToDo.push(currentTask);
-            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
-            window.addNewTask(currentTask, 'tasksToDo')
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask);
+            window.addNewTask(currentTask, 'tasksToDo');
+            srcCounter = 0;
             renderBoard();
         }
     }
@@ -128,8 +138,9 @@ function moveTarget(currentDraggedElement) {
         }
         else {
             tasksInProgress.push(currentTask);
-            window.addNewTask(currentTask, 'tasksInProgress')
-            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+            window.addNewTask(currentTask, 'tasksInProgress');
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask);
+            srcCounter = 0;
             renderBoard();
         }
     }
@@ -138,8 +149,9 @@ function moveTarget(currentDraggedElement) {
         }
         else {
             tasksAwaitFeedback.push(currentTask);
-            window.addNewTask(currentTask, 'tasksAwaitFeedback')
-            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+            window.addNewTask(currentTask, 'tasksAwaitFeedback');
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask);
+            srcCounter = 0;
             renderBoard();
         }
 
@@ -149,8 +161,9 @@ function moveTarget(currentDraggedElement) {
         }
         else {
             tasksDone.push(currentTask);
-            window.addNewTask(currentTask, 'tasksDone')
-            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask)
+            window.addNewTask(currentTask, 'tasksDone');
+            window.removeTask(movedTask, `${currentDraggedElement}`, currentTask);
+            srcCounter = 0;
             renderBoard();
         }
 
@@ -165,7 +178,7 @@ function moveTarget(currentDraggedElement) {
  * @param {string} taskStatus 
  */
 function startDragging(i, taskStatus) {
-    console.log(taskStatus)
     movedTask = i;
     currentDraggedElement = taskStatus;
+    console.log(taskStatus)
 }

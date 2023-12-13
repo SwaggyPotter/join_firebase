@@ -125,6 +125,7 @@
     min-height: 80%;
     width: 240px;
     position: relative;
+    z-index: 2;
 }
 
 .task-container-detail {

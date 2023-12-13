@@ -8,10 +8,15 @@ let bgColor;
  * 
  */
 function renderBoard() {
-    renderAllTasks(tasksToDo)
-    renderAllTasks(tasksInProgress)
-    renderAllTasks(tasksAwaitFeedback)
-    renderAllTasks(tasksDone)
+    renderAllTasks(tasksToDo);
+    renderAllTasks(tasksInProgress);
+    renderAllTasks(tasksAwaitFeedback);
+    renderAllTasks(tasksDone);
+    resetDummyPosition();
+}
+
+
+function resetDummyPosition() {
     document.getElementById('done-container').style.marginTop = '0px'
     document.getElementById('await-feedback-container').style.marginTop = '0px'
     document.getElementById('in-progress-container').style.marginTop = '0px'
@@ -84,7 +89,6 @@ function getCategoryColor(category) {
  * @param {array} tasktype 
  */
 function renderAllTasks(tasktype) {
-    console.log(tasktype)
     let taskContainer = document.getElementById(`${giveBackTheTaskTheme(tasktype)}`);
     taskContainer.innerHTML = '';
     setAllDummys(taskContainer, tasktype);
@@ -103,19 +107,15 @@ function renderAllTasks(tasktype) {
 function setAllDummys(taskContainer, tasktype) {
     if (giveBackTheTaskTheme(tasktype) == 'to-do-container') {
         taskContainer.innerHTML += `<div class="dummy" id="todoContainer"></div>`
-        console.log('Alle dummys set')
     }
     if (giveBackTheTaskTheme(tasktype) == 'in-progress-container') {
         taskContainer.innerHTML += `<div class="dummy" id="inProgressContainer"></div>`
-        console.log('Alle dummys set')
     }
     if (giveBackTheTaskTheme(tasktype) == 'await-feedback-container') {
         taskContainer.innerHTML += `<div class="dummy" id="awaitContainer"></div>`
-        console.log('Alle dummys set')
     }
     if (giveBackTheTaskTheme(tasktype) == 'done-container') {
         taskContainer.innerHTML += `<div class="dummy" id="doneContainer"></div>`
-        console.log('Alle dummys set')
     }
 }
 
