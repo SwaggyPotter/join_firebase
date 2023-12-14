@@ -53,7 +53,14 @@ function sortNamesByFirstLetter(names) {
  * 
  * @param {number} k 
  */
-function savePersonTemorary(k) {
+function savePersonTemorary(k, checkboxId) {
+    let checked = document.getElementById(`checkBoxNbr${checkboxId}`).checked
+    if (checked == true) {
+        document.getElementById(`checkBoxNbr${checkboxId}`).checked = false
+    }
+    else if (checked == false) {
+        document.getElementById(`checkBoxNbr${checkboxId}`).checked = true
+    }
     if (k == 1) {
         saveExtension(id1)
     }

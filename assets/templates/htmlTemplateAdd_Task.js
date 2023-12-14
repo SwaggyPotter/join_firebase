@@ -9,7 +9,7 @@ function htmlTemplateSubtasks(newtaskSubtask, i) {
 
 function htmlTemplateListAssignedTo(i) {
     return `
-    <li><input onclick="savePersonTemorary(1)" class="checkbox-contacts" type="checkbox" /> ${contacts[i]['name']} ${contacts[i]['second-name']}</li>
+    <li onclick="savePersonTemorary(1, ${i})" class="contactItem"><input id="checkBoxNbr${i}" class="checkbox-contacts" type="checkbox"/> ${contacts[i]['name']} ${contacts[i]['second-name']}</li>
     `;
 }
 
