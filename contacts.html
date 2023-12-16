@@ -156,10 +156,10 @@
                                 <div class="title">
                                     <input type="text" placeholder="Enter a title" id="task-title" required>
                                 </div>
-                                <div class="select-contacts-to-assign" id="select-contacts-to-assign">
+                                <div onclick="openContactsToAssign(); renderListAssignedTo()"
+                                    class="select-contacts-to-assign" id="select-contacts-to-assign">
                                     <span>Select contacts to assign</span>
-                                    <img src="assets/img/dropdown.svg"
-                                        onclick="openContactsToAssign(); renderListAssignedTo()">
+                                    <img src="assets/img/dropdown.svg">
                                 </div>
                                 <div id="list-assigned-to" class="dropdown-check-list d-none" tabindex="100">
                                     <ul class="items" id="checkbox-list-assigned-to">
@@ -176,10 +176,10 @@
                                 </div>
                                 <div class="category-add-task">
                                     <span>Category</span>
-                                    <div class="select-category" id="select-contacts-to-assign">
+                                    <div onclick="openTaskCategory(); renderListTaskCategory()" class="select-category"
+                                        id="select-contacts-to-assign">
                                         <span>Select task category</span>
-                                        <img src="assets/img/dropdown.svg"
-                                            onclick="openTaskCategory(); renderListTaskCategory()">
+                                        <img src="assets/img/dropdown.svg">
                                     </div>
                                     <div id="list-task-category" class="dropdown-check-list d-none" tabindex="100">
                                         <ul class="items" id="category-row">
