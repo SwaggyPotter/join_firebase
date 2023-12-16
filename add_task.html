@@ -40,6 +40,10 @@
                 initAddTask();
                 includeHTML();
             }, 1000);
+            setTimeout(() => {
+                renderDueDate();
+                containerToAdd = 'toDo'
+            }, 2000)
         }
     </script>
     <!-- Insert dedicated JS script -->
@@ -110,5 +114,4 @@
         </div>
     </main>
 </body>
-
 </html>

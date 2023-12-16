@@ -84,12 +84,17 @@ function saveExtension(id) {
             temporaryPersons.push(contacts[i]['name'] + ' ' + contacts[i]['second-name']);
         }
         if (!inputElements[i].checked && istNameImArray(contacts[i]['name'] + ' ' + contacts[i]['second-name'], temporaryPersons) == true) {
-            temporaryPersons = removeStringFromArray(temporaryPersons, contacts[i]['name'] + ' ' + contacts[i]['second-name'], temporaryPersons)
+            temporaryPersons = removeValueFromArray(temporaryPersons, contacts[i]['name'] + ' ' + contacts[i]['second-name'])
         }
     }
     sortNamesByFirstLetter(temporaryPersons)
 }
 
+
+function removeValueFromArray(array, valueToRemove) {
+    const newArray = array.filter(item => item !== valueToRemove);
+    return newArray;
+}
 
 /**
  * This function adds a task to the board's To Do list
@@ -101,7 +106,6 @@ async function addTask() {
     let dueDate = document.getElementById('due-date').value;
     getSubTasks();
     await pushTask(title, text, dueDate);
-    //window.location.href = "board.html";
 }
 
 
@@ -279,7 +283,7 @@ function getAssignedTo() {
     }
     checkEmptyAssignedTo(assignedTo);
     renderBoard();
-    closeAddTask()
+    closeAddTask();
 }
 
 

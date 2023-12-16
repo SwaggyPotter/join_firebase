@@ -86,11 +86,12 @@ function showAddPopUp() {
  * Handle the popup time
  */
 function addTaskWithTimeOut() {
-    getAssignedTo()
-    closeAddTaskContact()
-    showAddPopUp()
+    closeAddTaskContact();
+    showAddPopUp();
     setTimeout(() => {
-        addTask()
+        getAssignedTo();
+        addTask();
+        window.location.href = 'board.html';
     }, 2000)
 }
 

@@ -366,6 +366,8 @@ function closeAddTaskContact() {
  */
 function openAddTask() {
     open++
+    renderDueDate()
+    containerToAdd = 'toDo'
     if (window.innerWidth > 600 && open == 1) {
         document.getElementById('add-task-to-contact-container').style.width = '600px'
         document.getElementById('task-add-btn').style.position = 'inherit';
