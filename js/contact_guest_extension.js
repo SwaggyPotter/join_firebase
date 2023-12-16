@@ -89,9 +89,7 @@ function addTaskWithTimeOut() {
     closeAddTaskContact();
     showAddPopUp();
     setTimeout(() => {
-        getAssignedTo();
-        addTask();
-        window.location.href = 'board.html';
+        secondAddTask();
     }, 2000)
 }
 

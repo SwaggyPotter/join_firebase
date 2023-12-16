@@ -8,6 +8,7 @@ let teporaryCategory = [];
 let temporaryPersons = []
 let id1 = 'checkbox-contacts'
 let id2 = 'checkbox-contacts-two'
+containerToAdd = 'toDo'
 
 /**
  * clear the array's after closing the edit window
@@ -106,6 +107,26 @@ async function addTask() {
     let dueDate = document.getElementById('due-date').value;
     getSubTasks();
     await pushTask(title, text, dueDate);
+}
+
+
+/**
+ * this function registers the people who are assigned to the new task
+ * 
+ */
+function getAssignedTo() {
+    assignedTo = [];
+    initials = [];
+    let inputElements = document.getElementsByClassName('checkbox-contacts');
+    for (let i = 0; inputElements[i]; ++i) {
+        if (inputElements[i].checked) {
+            assignedTo.push(contacts[i]['name'] + ' ' + contacts[i]['second-name']);
+            initials.push(contacts[i]['name'].charAt(0) + contacts[i]['second-name'].charAt(0));
+        }
+    }
+    checkEmptyAssignedTo(assignedTo);
+    renderBoard();
+    closeAddTask();
 }
 
 
@@ -267,24 +288,7 @@ function checkEmptyCategory(category) {
 }
 
 
-/**
- * this function registers the people who are assigned to the new task
- * 
- */
-function getAssignedTo() {
-    assignedTo = [];
-    initials = [];
-    let inputElements = document.getElementsByClassName('checkbox-contacts');
-    for (let i = 0; inputElements[i]; ++i) {
-        if (inputElements[i].checked) {
-            assignedTo.push(contacts[i]['name'] + ' ' + contacts[i]['second-name']);
-            initials.push(contacts[i]['name'].charAt(0) + contacts[i]['second-name'].charAt(0));
-        }
-    }
-    checkEmptyAssignedTo(assignedTo);
-    renderBoard();
-    closeAddTask();
-}
+
 
 
 /**
@@ -418,4 +422,26 @@ function renderSubtasks() {
         nbOfSubtasks++;
     }
     content.value = '';
+}
+
+function secondAddTask() {
+    containerToAdd = 'toDo'
+    secondgetAssignedTo();
+    addTask();
+    setTimeout(() => {
+        window.location.href = 'board.html';
+    }, 500)
+}
+
+function secondgetAssignedTo() {
+    assignedTo = [];
+    initials = [];
+    let inputElements = document.getElementsByClassName('checkbox-contacts');
+    for (let i = 0; inputElements[i]; ++i) {
+        if (inputElements[i].checked) {
+            assignedTo.push(contacts[i]['name'] + ' ' + contacts[i]['second-name']);
+            initials.push(contacts[i]['name'].charAt(0) + contacts[i]['second-name'].charAt(0));
+        }
+    }
+    checkEmptyAssignedTo(assignedTo);
 }
