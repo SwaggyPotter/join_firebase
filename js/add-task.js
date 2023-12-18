@@ -332,7 +332,7 @@ function getSubTasks() {
     }
 }
 
-
+let openClose = false;
 /**
  * this function opens the name list container 
  * 
@@ -340,7 +340,15 @@ function getSubTasks() {
 function openContactsToAssign() {
     document.getElementById('list-assigned-to').classList.toggle('d-none');
     if (document.getElementById('list-assigned-to-two')) {
-        document.getElementById('list-assigned-to-two').classList.toggle('d-none')
+        document.getElementById('list-assigned-to-two').classList.toggle('d-none');
+    }
+    if (openClose == true) {
+        openClose = false;
+        document.getElementById('choosenContactContainer').style.display = 'inline';
+    }
+    else if (openClose == false) {
+        openClose = true
+        document.getElementById('choosenContactContainer').style.display = 'none';
     }
 }
 
@@ -366,10 +374,55 @@ function renderListAssignedTo() {
             content.innerHTML +=
                 htmlTemplateListAssignedTo(i);
     }
-    else if (temporaryPersons.lenght > 0) {
+    if (openClose == false) {
+        let choosenUser = document.getElementById('choosenContactContainer');
+        choosenUser.innerHTML = '';
+        for (let i = 0; i < contacts.length; i++)
+            if (temporaryPersons[i] != undefined) {
+                choosenUser.innerHTML += `<p class="choosenUser">${temporaryPersons[i]}</p>`
+            }
+    }
+    else if (temporaryPersons.lenght > 0) { }
+}
 
+
+function closeDropdown(x) {
+    if (x == 'contacts') {
+        document.getElementById('list-task-category').classList.add('d-none');
+    }
+    if (x == 'category') {
+        closeTheContactList()
+    }
+    if (x == 'datePicker') {
+        closeTheContactList()
+        document.getElementById('list-task-category').classList.add('d-none');
+    }
+    if (x == 'prio') {
+        closeTheContactList()
+        document.getElementById('list-task-category').classList.add('d-none');
+    }
+    if (x == 'clear') {
+        closeTheContactList()
+        document.getElementById('list-task-category').classList.add('d-none');
+    }
+    if (x == 'subTask') {
+        closeTheContactList()
+        document.getElementById('list-task-category').classList.add('d-none');
+    }
+    if(x == 'input'){
+        closeTheContactList()
+        document.getElementById('list-task-category').classList.add('d-none');
     }
 }
+
+
+function closeTheContactList() {
+    document.getElementById('list-assigned-to').classList.add('d-none');
+    openClose = false
+    document.getElementById('choosenContactContainer').style.display = 'inline';
+    renderListAssignedTo()
+}
+
 
 /**
  * render the contact list if you click on an task to edit

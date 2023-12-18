@@ -9,9 +9,9 @@ const Contacts = parseContactData(firstData);
  */
 async function loadContactFromBackEnd() {
     setTimeout(async () => {
-        sortedContacts = parseContactData(window.FirebaseContacts) || []
+        sortedContacts = await parseContactData(window.FirebaseContacts) || []
         renderTheQuestContacts();
-    }, 1000)
+    }, 4000)
 }
 
 /**
