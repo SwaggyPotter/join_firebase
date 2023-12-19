@@ -154,9 +154,10 @@
                                             alt="check"></button>
                                 </div>
                                 <div class="title">
-                                    <input type="text" placeholder="Enter a title" id="task-title" required>
+                                    <input onclick="closeDropdown('input')" type="text" placeholder="Enter a title"
+                                        id="task-title" required>
                                 </div>
-                                <div onclick="openContactsToAssign(); renderListAssignedTo()"
+                                <div onclick="openContactsToAssign(); renderListAssignedTo(); closeDropdown('contacts')"
                                     class="select-contacts-to-assign" id="select-contacts-to-assign">
                                     <span>Select contacts to assign</span>
                                     <img src="assets/img/dropdown.svg">
@@ -170,7 +171,7 @@
                                 </div>
                                 <div class="due-date">
                                     <span>Due date</span>
-                                    <div class="date-picker" id="date-picker">
+                                    <div onclick="closeDropdown('datePicker')" class="date-picker" id="date-picker">
                                         <input type="date" id="due-date" name="trip-start" value=""
                                             onfocus="this.showPicker()" required>
                                         <img src="assets/img/calendar.svg">
@@ -178,8 +179,8 @@
                                 </div>
                                 <div class="category-add-task">
                                     <span>Category</span>
-                                    <div onclick="openTaskCategory(); renderListTaskCategory()" class="select-category"
-                                        id="select-contacts-to-assign">
+                                    <div onclick="openTaskCategory(); renderListTaskCategory(); closeDropdown('category')"
+                                        class="select-category" id="select-contacts-to-assign">
                                         <span>Select task category</span>
                                         <img src="assets/img/dropdown.svg">
                                     </div>
@@ -190,22 +191,27 @@
                                     </div>
                                 </div>
                                 <div class="priority" id="task-priority">
-                                    <button id="urgent-btn" type="button" onclick="setPriority('urgent')">Urgent <img
+                                    <button id="urgent-btn" type="button"
+                                        onclick="setPriority('urgent'); closeDropdown('prio')">Urgent <img
                                             id="urgent-btn-img" src="assets/img/urgent.svg" alt="urgent"></button>
-                                    <button id="medium-btn" type="button" onclick="setPriority('medium')">Medium <img
+                                    <button id="medium-btn" type="button"
+                                        onclick="setPriority('medium'); closeDropdown('prio')">Medium <img
                                             id="medium-btn-img" src="assets/img/medium.svg" alt="medium"></button>
-                                    <button id="low-btn" type="button" onclick="setPriority('low')">Low <img
-                                            id="low-btn-img" src="assets/img/low.svg" alt="low"></button>
+                                    <button id="low-btn" type="button"
+                                        onclick="setPriority('low'); closeDropdown('prio')">Low <img id="low-btn-img"
+                                            src="assets/img/low.svg" alt="low"></button>
                                 </div>
                                 <div class="description">
                                     <span>Description</span>
-                                    <textarea name="description" placeholder="Enter a description" id="task-description"
-                                        cols="55" rows="5" required></textarea>
+                                    <textarea onclick="closeDropdown('input')" name="description"
+                                        placeholder="Enter a description" id="task-description" cols="55" rows="5"
+                                        required></textarea>
                                 </div>
                                 <div class="subtasks">
                                     <span>Subtasks</span>
                                     <div class="input-subtasks">
-                                        <input type="text" placeholder="add new subtask" id="task-subtask">
+                                        <input onclick="closeDropdown('input')" type="text"
+                                            placeholder="add new subtask" id="task-subtask">
                                         <img src="assets/img/plus.svg" alt="add" onclick="renderSubtasks()">
                                     </div>
                                 </div>

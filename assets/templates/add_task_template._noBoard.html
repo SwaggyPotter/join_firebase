@@ -7,12 +7,12 @@
             <div class="msg d-none" id="new-category-msg">Please enter a category.</div>
         </div>
         <div class="title">
-            <input type="text" placeholder="Enter a title" id="task-title" required>
+            <input onclick="closeDropdown('input')" type="text" placeholder="Enter a title" id="task-title" required>
         </div>
         <div style="cursor: pointer;" class="select-contacts-to-assign" id="select-contacts-to-assign"
-            onclick="openContactsToAssign(); renderListAssignedTo()">
+            onclick="openContactsToAssign(); renderListAssignedTo(); closeDropdown('contacts')"">
             <span>Select contacts to assign</span>
-            <img src="assets/img/dropdown.svg">
+            <img src=" assets/img/dropdown.svg">
         </div>
         <div id="list-assigned-to" class="dropdown-check-list d-none" tabindex="100">
             <ul class="items" id="checkbox-list-assigned-to">
@@ -23,7 +23,7 @@
         </div>
         <div class="due-date">
             <span>Due date</span>
-            <div class="date-picker" id="date-picker">
+            <div onclick="closeDropdown('datePicker')" class="date-picker" id="date-picker">
                 <input type="date" id="due-date" name="trip-start" value="" onfocus="this.showPicker()" required>
                 <img src="assets/img/calendar.svg">
             </div>
@@ -31,7 +31,7 @@
         <div class="category-add-task">
             <span>Category</span>
             <div style="cursor: pointer;" class="select-category" id="select-contacts-to-assign"
-                onclick="openTaskCategory(); renderListTaskCategory()">
+                onclick="openTaskCategory(); renderListTaskCategory(); closeDropdown('category')">
                 <span>Select task category</span>
                 <img src="assets/img/dropdown.svg">
             </div>
@@ -42,22 +42,22 @@
             </div>
         </div>
         <div class="priority" id="task-priority">
-            <button id="urgent-btn" type="button" onclick="setPriority('urgent')">Urgent <img id="urgent-btn-img"
+            <button id="urgent-btn" type="button" onclick="setPriority('urgent'); closeDropdown('prio')">Urgent <img id="urgent-btn-img"
                     src="assets/img/urgent.svg" alt="urgent"></button>
-            <button id="medium-btn" type="button" onclick="setPriority('medium')">Medium <img id="medium-btn-img"
+            <button id="medium-btn" type="button" onclick="setPriority('medium'); closeDropdown('prio')">Medium <img id="medium-btn-img"
                     src="assets/img/medium.svg" alt="medium"></button>
-            <button id="low-btn" type="button" onclick="setPriority('low')">Low <img id="low-btn-img"
+            <button id="low-btn" type="button" onclick="setPriority('low'); closeDropdown('prio')">Low <img id="low-btn-img"
                     src="assets/img/low.svg" alt="low"></button>
         </div>
         <div class="description">
             <span>Description</span>
-            <textarea name="description" placeholder="Enter a description" id="task-description" cols="55" rows="5"
-                required></textarea>
+            <textarea onclick="closeDropdown('input')" name="description" placeholder="Enter a description"
+                id="task-description" cols="55" rows="5" required></textarea>
         </div>
         <div class="subtasks">
             <span>Subtasks</span>
             <div class="input-subtasks">
-                <input type="text" placeholder="add new subtask" id="task-subtask">
+                <input onclick="closeDropdown('subTask')" type="text" placeholder="add new subtask" id="task-subtask">
                 <img class="addSubTask" src="assets/img/plus.svg" alt="add" onclick="renderSubtasks()">
             </div>
         </div>
@@ -65,8 +65,8 @@
             <!-- htmlTemplateSubtasks -->
         </div>
         <div class="execute-buttons">
-            <button type="button" class="hoverClearBTN" onclick="clearAddTaskForm()">Clear X</button>
-            <button class="hoverEffectBTN">Create <img src="assets/img/check.svg" alt="check"></button>
+            <button type="button" class="hoverClearBTN" onclick="clearAddTaskForm(); closeDropdown('clear')"">Clear X</button>
+            <button class=" hoverEffectBTN">Create <img src="assets/img/check.svg" alt="check"></button>
         </div>
     </form>
 </div>
