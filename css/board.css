@@ -7,7 +7,15 @@
     top: -190px;
 }
 
-.contactItem:hover{
+.choosenUser {
+    padding: 10px 15px !important;
+    background-color: rgba(128, 128, 128, 0.171);
+    margin-right: 12px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.contactItem:hover {
     background-color: rgba(128, 128, 128, 0.123);
     cursor: pointer;
 }
