@@ -288,9 +288,6 @@ function checkEmptyCategory(category) {
 }
 
 
-
-
-
 /**
  * this function checks if a contact is assigned to the task
  * 
@@ -331,6 +328,7 @@ function getSubTasks() {
         subtasks.push(subtask);
     }
 }
+
 
 let openClose = false;
 /**
@@ -386,6 +384,9 @@ function renderListAssignedTo() {
 }
 
 
+/**
+ * close the dropdown if you click on any other in the form
+ */
 function closeDropdown(x) {
     if (x == 'contacts') {
         document.getElementById('list-task-category').classList.add('d-none');
@@ -416,6 +417,9 @@ function closeDropdown(x) {
 }
 
 
+/**
+ * close the contact list and show the choosen contacts
+ */
 function closeTheContactList() {
     document.getElementById('list-assigned-to').classList.add('d-none');
     openClose = false
@@ -477,6 +481,10 @@ function renderSubtasks() {
     content.value = '';
 }
 
+
+/**
+ * seconds function for adding a task
+ */
 function secondAddTask() {
     containerToAdd = 'toDo'
     secondgetAssignedTo();
@@ -486,6 +494,10 @@ function secondAddTask() {
     }, 500)
 }
 
+
+/**
+ * seconds function for adding a task
+ */
 function secondgetAssignedTo() {
     assignedTo = [];
     initials = [];

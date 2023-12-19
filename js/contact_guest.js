@@ -99,6 +99,7 @@ function openEdit(o) {
     closeAdd()
 }
 
+
 /**
  * Close the detail window
  */
@@ -125,6 +126,7 @@ function fillEditInput(x) {
     document.getElementById(`emailInputEdit${x}`).value = `${sortedContacts[x]['email']}`
     document.getElementById(`phoneInputEdit${x}`).value = `${sortedContacts[x]['tel']}`
 }
+
 
 /**
  * Save the changes of the choosen contact

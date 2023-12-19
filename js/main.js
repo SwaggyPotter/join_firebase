@@ -33,8 +33,8 @@ function loadContactsFromBackend() {
     contacts = parseContactData(window.FirebaseContacts);
 }
 
+
 /**
- * 
  * @param {array} jsonStrings array with strings
  * @returns an objekt
  */
@@ -55,8 +55,6 @@ function loadCategoriesFromBackend() {
     categoryColors = JSON.parse(window.FireCategoryColors) || [];
     categories = JSON.parse(window.FireCategory) || [];
 }
-
-
 
 
 /**
@@ -139,12 +137,12 @@ function getUsersAsArray() {
     return window.FireUser;
 }
 
+
 /**
  * This function is used to reset the values of the passed input fields
  * @param element01 - field 01
  * @param element02 - field 01
  */
-
 function emptyValues(element01, element02) {
     element01.value = "";
     element02.value = "";

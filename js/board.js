@@ -16,6 +16,9 @@ function renderBoard() {
 }
 
 
+/**
+ * Reset the dummy and hide it after placing an task
+ */
 function resetDummyPosition() {
     document.getElementById('done-container').style.marginTop = '0px'
     document.getElementById('await-feedback-container').style.marginTop = '0px'
@@ -69,6 +72,7 @@ function giveBackTheId(tasktype) {
     }
 }
 
+
 /**
  * this function sets the background color for the category
  * 
@@ -103,7 +107,11 @@ function renderAllTasks(tasktype) {
     }
 }
 
-
+/**
+ * Set the dummys after redering the board wirth the task
+ * @param {*} taskContainer 
+ * @param {*} tasktype 
+ */
 function setAllDummys(taskContainer, tasktype) {
     if (giveBackTheTaskTheme(tasktype) == 'to-do-container') {
         taskContainer.innerHTML += `<div class="dummy" id="todoContainer"></div>`
@@ -228,7 +236,6 @@ function filterToDo(search) {
         }
     }
 }
-
 
 
 /**

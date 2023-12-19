@@ -16,45 +16,76 @@ function allowDrop(ev, taskID) {
         taskSrc = taskID;
     }
     if (ev['toElement']['id'] == 'to-do-container' && taskSrc != 'to-do-container') {
-        document.getElementById('to-do-container').style.marginTop = '200px'
-        document.getElementById('todoContainer').style.display = 'flex'
-        document.getElementById('await-feedback-container').style.marginTop = '0px'
-        document.getElementById('awaitContainer').style.display = 'none'
-        document.getElementById('in-progress-container').style.marginTop = '0px'
-        document.getElementById('inProgressContainer').style.display = 'none'
-        document.getElementById('done-container').style.marginTop = '0px'
-        document.getElementById('doneContainer').style.display = 'none'
+        showTodoDummy();
     }
     if (ev['toElement']['id'] == 'await-feedback-container' && taskSrc != 'await-feedback-container') {
-        document.getElementById('to-do-container').style.marginTop = '0px'
-        document.getElementById('todoContainer').style.display = 'none'
-        document.getElementById('await-feedback-container').style.marginTop = '200px'
-        document.getElementById('awaitContainer').style.display = 'flex'
-        document.getElementById('in-progress-container').style.marginTop = '0px'
-        document.getElementById('inProgressContainer').style.display = 'none'
-        document.getElementById('done-container').style.marginTop = '0px'
-        document.getElementById('doneContainer').style.display = 'none'
+        showAwaitFeedbackDummy()
     }
     if (ev['toElement']['id'] == 'in-progress-container' && taskSrc != 'in-progress-container') {
-        document.getElementById('to-do-container').style.marginTop = '0px'
-        document.getElementById('todoContainer').style.display = 'none'
-        document.getElementById('await-feedback-container').style.marginTop = '0px'
-        document.getElementById('awaitContainer').style.display = 'none'
-        document.getElementById('in-progress-container').style.marginTop = '200px'
-        document.getElementById('inProgressContainer').style.display = 'flex'
-        document.getElementById('done-container').style.marginTop = '0px'
-        document.getElementById('doneContainer').style.display = 'none'
+        showinProgressDummy()
     }
     if (ev['toElement']['id'] == 'done-container' && taskSrc != 'done-container') {
-        document.getElementById('to-do-container').style.marginTop = '0px'
-        document.getElementById('todoContainer').style.display = 'none'
-        document.getElementById('await-feedback-container').style.marginTop = '0px'
-        document.getElementById('awaitContainer').style.display = 'none'
-        document.getElementById('in-progress-container').style.marginTop = '0px'
-        document.getElementById('inProgressContainer').style.display = 'none'
-        document.getElementById('done-container').style.marginTop = '200px'
-        document.getElementById('doneContainer').style.display = 'flex'
+        showDoneDummy()
     }
+}
+
+
+/**
+ * Show the todo placeholder
+ */
+function showTodoDummy() {
+    document.getElementById('to-do-container').style.marginTop = '200px'
+    document.getElementById('todoContainer').style.display = 'flex'
+    document.getElementById('await-feedback-container').style.marginTop = '0px'
+    document.getElementById('awaitContainer').style.display = 'none'
+    document.getElementById('in-progress-container').style.marginTop = '0px'
+    document.getElementById('inProgressContainer').style.display = 'none'
+    document.getElementById('done-container').style.marginTop = '0px'
+    document.getElementById('doneContainer').style.display = 'none'
+}
+
+/**
+ * Show the await feedback placeholder
+ */
+function showAwaitFeedbackDummy() {
+    document.getElementById('to-do-container').style.marginTop = '0px'
+    document.getElementById('todoContainer').style.display = 'none'
+    document.getElementById('await-feedback-container').style.marginTop = '200px'
+    document.getElementById('awaitContainer').style.display = 'flex'
+    document.getElementById('in-progress-container').style.marginTop = '0px'
+    document.getElementById('inProgressContainer').style.display = 'none'
+    document.getElementById('done-container').style.marginTop = '0px'
+    document.getElementById('doneContainer').style.display = 'none'
+}
+
+
+/**
+ * Show the in progress placeholder
+ */
+function showinProgressDummy() {
+    document.getElementById('to-do-container').style.marginTop = '0px'
+    document.getElementById('todoContainer').style.display = 'none'
+    document.getElementById('await-feedback-container').style.marginTop = '0px'
+    document.getElementById('awaitContainer').style.display = 'none'
+    document.getElementById('in-progress-container').style.marginTop = '200px'
+    document.getElementById('inProgressContainer').style.display = 'flex'
+    document.getElementById('done-container').style.marginTop = '0px'
+    document.getElementById('doneContainer').style.display = 'none'
+}
+
+
+/**
+ * Show the done placeholder
+ */
+function showDoneDummy() {
+    document.getElementById('to-do-container').style.marginTop = '0px'
+    document.getElementById('todoContainer').style.display = 'none'
+    document.getElementById('await-feedback-container').style.marginTop = '0px'
+    document.getElementById('awaitContainer').style.display = 'none'
+    document.getElementById('in-progress-container').style.marginTop = '0px'
+    document.getElementById('inProgressContainer').style.display = 'none'
+    document.getElementById('done-container').style.marginTop = '200px'
+    document.getElementById('doneContainer').style.display = 'flex'
 }
 
 
