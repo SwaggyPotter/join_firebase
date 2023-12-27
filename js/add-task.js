@@ -267,9 +267,44 @@ function teporaryAdd(i) {
             teporaryCategory.push(categories[i]);
         }
         if (!inputElements[i].checked && istNameImArray(categories[i], teporaryCategory) == true) {
-            teporaryCategory = removeStringFromArray(teporaryCategory, categories[i], teporaryCategory)
+            teporaryCategory = removeValueFromArray(teporaryCategory, categories[i])
         }
     }
+}
+
+
+let categoryOpenClose = false;
+function showCategorys() {
+    document.getElementById('showCaseCategory').innerHTML = teporaryCategory;
+}
+
+
+/**
+ * this function opens the category list
+ * 
+ */
+function openTaskCategory() {
+    document.getElementById('list-task-category').classList.toggle('d-none');
+    showCategorys()
+    document.getElementById('showCaseCategory').classList.add('d-none')
+    if (categoryOpenClose == false) {
+        categoryOpenClose = true
+        document.getElementById('showCaseCategory').classList.add('d-none')
+    }
+    else if (categoryOpenClose == true) {
+        categoryOpenClose = false
+        document.getElementById('showCaseCategory').classList.remove('d-none')
+    }
+}
+
+
+/**
+ * Close the add category drop down
+ */
+function closeAddCategory() {
+    showCategorys()
+    categoryOpenClose = false
+    document.getElementById('showCaseCategory').classList.remove('d-none')
 }
 
 
@@ -352,17 +387,7 @@ function openContactsToAssign() {
 
 
 /**
- * this function opens the category list
- * 
- */
-function openTaskCategory() {
-    document.getElementById('list-task-category').classList.toggle('d-none');
-}
-
-
-/**
  * this function renders the assigned to list
- * 
  */
 function renderListAssignedTo() {
     if (temporaryPersons.length === 0) {
@@ -390,28 +415,34 @@ function renderListAssignedTo() {
 function closeDropdown(x) {
     if (x == 'contacts') {
         document.getElementById('list-task-category').classList.add('d-none');
+        closeAddCategory()
     }
     if (x == 'category') {
         closeTheContactList()
     }
     if (x == 'datePicker') {
         closeTheContactList()
+        closeAddCategory()
         document.getElementById('list-task-category').classList.add('d-none');
     }
     if (x == 'prio') {
         closeTheContactList()
+        closeAddCategory()
         document.getElementById('list-task-category').classList.add('d-none');
     }
     if (x == 'clear') {
         closeTheContactList()
+        closeAddCategory()
         document.getElementById('list-task-category').classList.add('d-none');
     }
     if (x == 'subTask') {
         closeTheContactList()
+        closeAddCategory()
         document.getElementById('list-task-category').classList.add('d-none');
     }
-    if(x == 'input'){
+    if (x == 'input') {
         closeTheContactList()
+        closeAddCategory()
         document.getElementById('list-task-category').classList.add('d-none');
     }
 }
