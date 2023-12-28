@@ -8,6 +8,7 @@ let teporaryCategory = [];
 let temporaryPersons = []
 let id1 = 'checkbox-contacts'
 let id2 = 'checkbox-contacts-two'
+let categoryOpenClose = false;
 containerToAdd = 'toDo'
 
 /**
@@ -273,9 +274,30 @@ function teporaryAdd(i) {
 }
 
 
-let categoryOpenClose = false;
+/**
+ * With clicking on the field, the checkbox of the choosen category is checked
+ * @param {*} x 
+ */
+function setCheckBoxCheckt(x) {
+    if (document.getElementById(`checkBox${x}`).checked == true) {
+        document.getElementById(`checkBox${x}`).checked = false;
+    }
+    else if (document.getElementById(`checkBox${x}`).checked == false) {
+        document.getElementById(`checkBox${x}`).checked = true;
+    }
+}
+
+
+/**
+ * show the choosen categorys, if you dont choose one the inner html is empty
+ */
 function showCategorys() {
-    document.getElementById('showCaseCategory').innerHTML = teporaryCategory;
+    if (teporaryCategory.length < 1) {
+        document.getElementById('showCaseCategory').innerHTML = ``;
+    }
+    else {
+        document.getElementById('showCaseCategory').innerHTML = `<span class="categoryBackground">${teporaryCategory}</span>`;
+    }
 }
 
 
