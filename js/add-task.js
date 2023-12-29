@@ -93,10 +93,17 @@ function saveExtension(id) {
 }
 
 
+/**
+ * Remove an item from an array and give back the array without the element
+ * @param {array} array 
+ * @param {any} valueToRemove 
+ * @returns a new array without the given element
+ */
 function removeValueFromArray(array, valueToRemove) {
     const newArray = array.filter(item => item !== valueToRemove);
     return newArray;
 }
+
 
 /**
  * This function adds a task to the board's To Do list
@@ -264,7 +271,7 @@ function teporaryAdd(i) {
     for (let i = 0; inputElements[i]; ++i) {
         if (istNameImArray(categories[i], teporaryCategory) == true && inputElements[i].checked) {
         }
-        if (inputElements[i].checked && istNameImArray(categories[i], teporaryCategory) == false) {
+        if (inputElements[i].checked && istNameImArray(categories[i], teporaryCategory) == false && document.getElementById(`checkBox${i}`).disabled == false) {
             teporaryCategory.push(categories[i]);
         }
         if (!inputElements[i].checked && istNameImArray(categories[i], teporaryCategory) == true) {
@@ -276,14 +283,42 @@ function teporaryAdd(i) {
 
 /**
  * With clicking on the field, the checkbox of the choosen category is checked
- * @param {*} x 
+ * @param {number} x number of the category from the html document
  */
 function setCheckBoxCheckt(x) {
     if (document.getElementById(`checkBox${x}`).checked == true) {
         document.getElementById(`checkBox${x}`).checked = false;
     }
-    else if (document.getElementById(`checkBox${x}`).checked == false) {
+    else if (document.getElementById(`checkBox${x}`).checked == false && document.getElementById(`checkBox${x}`).disabled == false) {
         document.getElementById(`checkBox${x}`).checked = true;
+    }
+    checkDisable(x)
+}
+
+
+/**
+ * Set the other non choosen categorys on disable or enable if no other category is choosen
+ * @param {number} x number of the category from the html document
+ */
+function checkDisable(x) {
+    if (document.getElementById(`checkBox${x}`).disabled == true) { }
+    else {
+        for (i = 0; i < categories.length; i++) {
+            if (document.getElementById(`checkBox${x}`).checked == true) {
+                for (i = 0; i < categories.length; i++) {
+                    if (document.getElementById(`checkBox${i}`).checked == false) {
+                        document.getElementById(`checkBox${i}`).disabled = true;
+                    }
+                }
+            }
+            else if (document.getElementById(`checkBox${x}`).checked == false) {
+                for (i = 0; i < categories.length; i++) {
+                    if (document.getElementById(`checkBox${i}`).checked == false) {
+                        document.getElementById(`checkBox${i}`).disabled = false;
+                    }
+                }
+            }
+        }
     }
 }
 
